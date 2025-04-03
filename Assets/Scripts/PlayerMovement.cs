@@ -6,9 +6,11 @@ using UnityEngine;
 /// </summary>
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speed;
-    [SerializeField] private float jumpForce;
+    // подходящее значение для gravityScale - 5
+    [SerializeField] private float speed; // 8
+    [SerializeField] private float jumpForce; // 15 
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask wallLayer;
     private Rigidbody2D body;
     private Animator anim;
     private BoxCollider2D boxCollider;
@@ -26,8 +28,11 @@ public class PlayerMovement : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
 
-        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-
+        if (!isWallCollision()) // костыль, чтобы не прилипать к стене, если въебался, будучи в прыжке
+        {
+            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+        }
+        
         // 
         if (horizontalInput > 0.01f)
         {
@@ -45,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
         anim.SetBool("runNormal", horizontalInput != 0);
         anim.SetBool("grounded", isGrounded());
+
+        /*if (isWallCollision())
+        {
+            body.linearVelocity = new Vector2(body.linearVelocity.x, -jumpForce);
+        }*/
     }
 
     private void Jump()
@@ -56,12 +66,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
     }
 
     private bool isGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0f, Vector2.down, 0.1f, groundLayer);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+            Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
+    }
+
+    private bool isWallCollision()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+            new Vector2(transform.localScale.x, 0), 0.3f, wallLayer);
         return raycastHit.collider != null;
     }
 }
