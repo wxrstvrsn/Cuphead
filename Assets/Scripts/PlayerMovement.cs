@@ -8,13 +8,18 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private LayerMask groundLayer;
     private Rigidbody2D body;
     private Animator anim;
+    private BoxCollider2D boxCollider;
 
     private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        anim.SetBool("shootingStraight", false);
+        anim.SetBool("shootingDiagonal", false);
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
@@ -33,12 +38,30 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && isGrounded())
         {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+            Jump();
         }
+
+        anim.SetBool("runNormal", horizontalInput != 0);
+        anim.SetBool("grounded", isGrounded());
+    }
+
+    private void Jump()
+    {
+        // TODO: add isGrounded checker that removes multiple jumps in air
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        anim.SetTrigger("jump");
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
         
-        
-        anim.SetBool("RunNormal", horizontalInput != 0);
+    }
+
+    private bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center,boxCollider.bounds.size,0f, Vector2.down, 0.1f, groundLayer);
+        return raycastHit.collider != null;
     }
 }
