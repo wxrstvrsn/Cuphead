@@ -14,6 +14,40 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     private BoxCollider2D boxCollider;
+    
+    
+    
+    
+    /*
+     * TODO:
+            Придумать-таки как сука не порвав жопу корректно забороть запрыги
+            на тайлы, находясь "типа снизу" от их коллайдера  
+     */
+    /*
+    // SHITCODE IS COMING !!!!!!!! TODO rethink???
+    [SerializeField] private LayerMask oneWayLayer;
+    private float raycastDistance = 1000f;
+    private Collider2D oneWayPlatformCollider;
+    private Collider2D playerCollider;
+    
+    void DetectPlatformAbove()
+    {
+        print("DETECTING PLATFORM ABOVE");
+        // Выпускаем луч вверх от игрока, чтобы найти платформу
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, raycastDistance, oneWayLayer);
+        RaycastHit2D hit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+            Vector2.up, 20000f, oneWayLayer);
+        
+        if (hit.collider != null)
+        {
+            print("One way collision DISABLED");
+            oneWayPlatformCollider = hit.collider;
+            Physics2D.IgnoreCollision(playerCollider, oneWayPlatformCollider, true); // Отключаем коллизию
+        }
+    }
+    // SHIT ENDS
+    */
+    
 
     private void Awake()
     {
@@ -22,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("shootingStraight", false);
         anim.SetBool("shootingDiagonal", false);
         boxCollider = GetComponent<BoxCollider2D>();
+        // playerCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -32,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
         {
             body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
         }
-        
+
         // 
         if (horizontalInput > 0.01f)
         {
@@ -60,12 +95,10 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         // TODO: add isGrounded checker that removes multiple jumps in air
+        // DetectPlatformAbove();
         body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        // Invoke("EnableCollision", 50f); 
         anim.SetTrigger("jump");
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
     }
 
     private bool isGrounded()
@@ -81,4 +114,14 @@ public class PlayerMovement : MonoBehaviour
             new Vector2(transform.localScale.x, 0), 0.3f, wallLayer);
         return raycastHit.collider != null;
     }
+
+    /*void EnableCollision()
+    {
+        if (oneWayPlatformCollider != null)
+        {
+            Physics2D.IgnoreCollision(oneWayPlatformCollider, playerCollider, false);
+            print("Collision ENABLED");
+            oneWayPlatformCollider = null;
+        }
+    }*/
 }
