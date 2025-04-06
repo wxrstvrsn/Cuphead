@@ -5,14 +5,14 @@ public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private float attackCooldown;
     
-    private PlayerMovement playerMovement;
+    private Player _player;
     private PlayerAnimation playerAnimation;
 
     private bool isShooting;
 
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        _player = GetComponent<Player>();
         playerAnimation = GetComponent<PlayerAnimation>();
     }
 
@@ -24,6 +24,6 @@ public class PlayerShooting : MonoBehaviour
     private void HandleShooting()
     {
         isShooting = Input.GetKey(KeyCode.Z);
-        playerAnimation.UpdateShootingAnimation(isShooting, playerMovement.IsRunning());
+        playerAnimation.UpdateShootingAnimation(isShooting, _player.IsRunning());
     }
 }

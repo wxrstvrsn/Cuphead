@@ -22,6 +22,8 @@ public class PlayerAnimation : MonoBehaviour
 
     public void PlayJump()
     {
+        Debug.Log(">>> Jump Triggered");
+        anim.ResetTrigger("jump");
         anim.SetTrigger("jump");
     }
 

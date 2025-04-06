@@ -4,84 +4,95 @@ using UnityEngine;
 /// <summary>
 /// Скрипт обработки перемещений персонажа игрока
 /// </summary>
-public class PlayerMovement : MonoBehaviour
+public class Player : Entity
 {
     // подходящее значение для gravityScale - 5
-    [SerializeField] private float speed; // 8
-    [SerializeField] private float jumpForce; // 15 
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private LayerMask wallLayer;
-
-    private Rigidbody2D body;
     private PlayerAnimation playerAnim;
     private PlayerShooting playerShoot;
-    private BoxCollider2D boxCollider;
 
     private bool isRunning;
     public bool IsRunning() => isRunning;
-    public bool IsGrounded() => CheckIsGrounded();
 
-    private void Awake()
+    protected override void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
+        base.Awake();
         playerAnim = GetComponent<PlayerAnimation>();
-        playerShoot = GetComponent<PlayerShooting>();
-        boxCollider = GetComponent<BoxCollider2D>();
-        // playerCollider = GetComponent<Collider2D>();
     }
 
     private void Update()
     {
-        HadleMovement();
-        HandleJump();
-        playerAnim.SetGrounded(CheckIsGrounded());
+        HandleInput();
+        UpdateAnimationStates();
     }
 
-    void HadleMovement()
+    private void HandleInput()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        bool isMoving = horizontalInput != 0;
 
-        isRunning = horizontalInput != 0;
-        playerAnim.SetRunning(isRunning);
+        Move(horizontalInput);
 
-        if (!IsTouchingWall())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
-        }
+            Jump();
 
-        Flip(horizontalInput);
-    }
-
-    private void HandleJump()
-    {
-        if (Input.GetKey(KeyCode.Space) && CheckIsGrounded())
-        {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
             playerAnim.PlayJump();
         }
+
+        playerAnim.SetRunning(isMoving);
     }
 
-    private bool CheckIsGrounded()
+    private void UpdateAnimationStates()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
-            Vector2.down, 0.1f, groundLayer);
-        return raycastHit.collider != null;
-    }
-
-    private bool IsTouchingWall()
-    {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
-            Vector2.right * transform.localScale.x, 0.3f, wallLayer);
-    }
-
-    private void Flip(float horizontalInput)
-    {
-        if (horizontalInput > 0.01f)
-            transform.localScale = Vector3.one;
-        else if (horizontalInput < -0.01f)
-            transform.localScale = new Vector3(-1, 1, 1);
+        playerAnim.SetGrounded(IsGrounded());
     }
 }
+
+/*void HadleMovement()
+{
+    float horizontalInput = Input.GetAxis("Horizontal");
+
+    isRunning = horizontalInput != 0;
+    playerAnim.SetRunning(isRunning);
+
+    if (!IsTouchingWall())
+    {
+        body.linearVelocity = new Vector2(horizontalInput * speed, body.linearVelocity.y);
+    }
+
+    Flip(horizontalInput);
+}
+
+private void HandleJump()
+{
+    if (Input.GetKey(KeyCode.Space) && CheckIsGrounded())
+    {
+        body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+        playerAnim.PlayJump();
+    }
+}
+
+private bool CheckIsGrounded()
+{
+    RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+        Vector2.down, 0.1f, groundLayer);
+    return raycastHit.collider != null;
+}
+
+private bool IsTouchingWall()
+{
+    return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+        Vector2.right * transform.localScale.x, 0.3f, wallLayer);
+}
+
+private void Flip(float horizontalInput)
+{
+    if (horizontalInput > 0.01f)
+        transform.localScale = Vector3.one;
+    else if (horizontalInput < -0.01f)
+        transform.localScale = new Vector3(-1, 1, 1);
+}*/
+
 /*
      * TODO:
             Придумать-таки как сука не порвав жопу корректно забороть запрыги
