@@ -1,0 +1,54 @@
+# 🔷 Unity специфические папки
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+
+# 🔷 User-specific файлы
+*.csproj
+*.sln
+*.user
+*.pidb
+*.suo
+*.unityproj
+*.tmproj
+*.booproj
+
+# 🔷 Rider / JetBrains
+.idea/
+*.DotSettings
+
+# 🔷 VSCode
+.vscode/
+
+# 🔷 macOS / Windows системные
+.DS_Store
+Thumbs.db
+
+# 🔷 Crash Reports
+sysinfo.txt
+
+# 🔷 Unity автогенерируемые данные
+*.unitypackage
+*.apk
+*.aab
+
+# 🔷 Игровые файлы сборки
+*.exe
+*.app
+*.ipa
+
+# 🔷 НЕ ИГНОРИРОВАТЬ это! — тебе это НУЖНО в Git:
+!Assets/
+!Assets/**/*.meta
+!Assets/**/*.unity
+!Assets/**/*.prefab
+!Assets/**/*.mat
+!Assets/**/*.anim
+!Assets/**/*.controller
+
+# 🔷 Скрываем все остальные мета/мусорные
+*.meta
+
