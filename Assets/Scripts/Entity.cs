@@ -6,6 +6,7 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float jumpForce;
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
+    [SerializeField] int healthPoints;
 
     private Rigidbody2D _body;
     private BoxCollider2D _boxCollider;
@@ -54,5 +55,10 @@ public class Entity : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
+    }
+
+    protected void GetDamage()
+    {
+        healthPoints -= 1;
     }
 }
