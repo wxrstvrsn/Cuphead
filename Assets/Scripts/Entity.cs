@@ -33,9 +33,11 @@ public class Entity : MonoBehaviour
 
     protected bool IsGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
+        RaycastHit2D raycastHitGround = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
             Vector2.down, 0.1f, groundLayer);
-        return raycastHit.collider != null;
+        RaycastHit2D raycastHitWall = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
+            Vector2.down, 0.1f, wallLayer);
+        return raycastHitWall || raycastHitGround;
     }
 
     protected bool IsTouchingWall()
