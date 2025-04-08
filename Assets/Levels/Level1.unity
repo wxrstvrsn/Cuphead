@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &71802678
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &142974007
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -702,7 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &189789285
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &205399217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1236,7 +1236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &500662314
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &537379646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1857,7 +1857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &768166841
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2057,7 +2057,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &837235426
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2298,7 +2298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!61 &868830002
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  bulletLifeTime: 5
+  bulletLifeTime: 10
 --- !u!1 &1559279373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,7 +2730,7 @@ Transform:
   m_GameObject: {fileID: 1559279373}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.84, y: 0.01, z: 0.060264837}
+  m_LocalPosition: {x: 1.24, y: 0.01, z: 0.060264837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2910,7 +2910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2840b25b4c6226b49b450b2040a40bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackCooldown: 0.2
+  attackCooldown: 1
   bulletHomePoint: {fileID: 1559279375}
   bullets:
   - {fileID: 1364747320}

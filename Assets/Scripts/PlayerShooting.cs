@@ -26,6 +26,7 @@ public class PlayerShooting : MonoBehaviour
         UpdateAnimation();
 
         HandleShooting();
+        coolDownTimer += Time.deltaTime;
     }
 
     private void HandleShooting()
@@ -34,8 +35,10 @@ public class PlayerShooting : MonoBehaviour
         {
             Debug.Log("HANDLE SHOOTING");
             coolDownTimer = 0;
-            bullets[FindActiveBullet()].transform.position = bulletHomePoint.position;
-            bullets[FindActiveBullet()].GetComponent<Bullet>().SetDirection(Mathf.Sign(_player.transform.localScale.x));
+
+            int index = FindActiveBullet();
+            bullets[index].transform.position = bulletHomePoint.position;
+            bullets[index].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
         }
     }
 

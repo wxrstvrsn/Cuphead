@@ -27,8 +27,8 @@ public class Bullet : MonoBehaviour
         transform.Translate(movementSpeed, 0,0);
         
         lifeTime += Time.deltaTime;
-        
-        if(lifeTime >= bulletLifeTime) gameObject.SetActive(false);
+        if (lifeTime > bulletLifeTime)
+            gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
