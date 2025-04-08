@@ -19,7 +19,8 @@ public class Entity : MonoBehaviour
 
     protected void Move(float direction)
     {
-        body.linearVelocity = new Vector2(direction * speed, body.linearVelocity.y);
+        if (!IsTouchingWall())
+            body.linearVelocity = new Vector2(direction * speed, body.linearVelocity.y);
         Flip(direction);
     }
 
@@ -28,9 +29,7 @@ public class Entity : MonoBehaviour
         if (IsGrounded())
         {
             body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
-            
         }
-        
     }
 
     protected bool IsGrounded()
