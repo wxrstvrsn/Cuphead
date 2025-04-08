@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public class Entity : MonoBehaviour
 {
@@ -8,19 +7,19 @@ public class Entity : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask wallLayer;
 
-    private Rigidbody2D body;
-    private BoxCollider2D boxCollider;
+    private Rigidbody2D _body;
+    private BoxCollider2D _boxCollider;
 
     protected virtual void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        _body = GetComponent<Rigidbody2D>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     protected void Move(float direction)
     {
         if (!IsTouchingWall())
-            body.linearVelocity = new Vector2(direction * speed, body.linearVelocity.y);
+            _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
         Flip(direction);
     }
 
@@ -28,20 +27,20 @@ public class Entity : MonoBehaviour
     {
         if (IsGrounded())
         {
-            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpForce);
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce);
         }
     }
 
     protected bool IsGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+        RaycastHit2D raycastHit = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
             Vector2.down, 0.1f, groundLayer);
         return raycastHit.collider != null;
     }
 
     protected bool IsTouchingWall()
     {
-        return Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0f,
+        return Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
             Vector2.right * transform.localScale.x, 0.3f, wallLayer);
     }
 
@@ -53,14 +52,5 @@ public class Entity : MonoBehaviour
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
-    }
-
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

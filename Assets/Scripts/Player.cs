@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,16 +6,18 @@ using UnityEngine;
 public class Player : Entity
 {
     // подходящее значение для gravityScale - 5
-    private PlayerAnimation playerAnim;
-    private PlayerShooting playerShoot;
+    private PlayerAnimation  _playerAnim;
+    private PlayerShooting _playerShoot;
 
-    private bool isRunning;
-    public bool IsRunning() => isRunning;
+    private bool _isRunning;
+    public bool IsRunning() => _isRunning;
+    
+    /*public float GetVelocityX => */
 
     protected override void Awake()
     {
         base.Awake();
-        playerAnim = GetComponent<PlayerAnimation>();
+        _playerAnim = GetComponent<PlayerAnimation>();
     }
 
     private void Update()
@@ -36,15 +37,15 @@ public class Player : Entity
         {
             Jump();
 
-            playerAnim.PlayJump();
+            _playerAnim.PlayJump();
         }
 
-        playerAnim.SetRunning(isMoving);
+        _playerAnim.SetRunning(isMoving);
     }
 
     private void UpdateAnimationStates()
     {
-        playerAnim.SetGrounded(IsGrounded());
+        _playerAnim.SetGrounded(IsGrounded());
     }
 }
 

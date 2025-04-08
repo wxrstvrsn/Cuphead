@@ -5,50 +5,60 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float bulletLifeTime;
-    
-    private float direction;
-    private bool hit;
-    private float lifeTime;
 
-    private Animator anim;
-    private BoxCollider2D boxCollider;
+    private float _direction;
+    private bool _hit;
+    private float _lifeTime;
+
+    private Animator _anim;
+    private BoxCollider2D _boxCollider;
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        _anim = GetComponent<Animator>();
+        _boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Update()
     {
-        if(hit) return;
+        if (_hit) return;
+
+        float movementSpeed = _direction * speed * Time.deltaTime;
+        transform.Translate(Vector3.right * movementSpeed);
+
+        // some fx -- continuous shaking along oY axis
+        float wavePower = Mathf.Sin(Time.time * 10f) * 0.01f;
+        transform.position += new Vector3(0f, wavePower, 0f);
         
-        float movementSpeed = direction * speed * Time.deltaTime;
-        transform.Translate(movementSpeed, 0,0);
-        
-        lifeTime += Time.deltaTime;
-        if (lifeTime > bulletLifeTime)
+        /*TODO: исправить баг с тем, что при начале движения во
+            время стрельбы пули друг друга догоняют
+            может, необходимо добавить некую зависимость
+            от положения игрока (хотя и так есть BulletPoint)
+            короч подумать надо*/
+
+        _lifeTime += Time.deltaTime;
+        if (_lifeTime > bulletLifeTime)
             gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        hit = true;
-        boxCollider.enabled = false;
-        anim.SetTrigger("explode");
+        _hit = true;
+        _boxCollider.enabled = false;
+        _anim.SetTrigger("explode");
     }
 
     public void SetDirection(float _direction)
     {
         Debug.Log("SET DIRECTION");
-        lifeTime = 0;
-        direction = _direction;
+        _lifeTime = 0;
+        this._direction = _direction;
         gameObject.SetActive(true);
-        hit = false;
-        boxCollider.enabled = true;
-        
+        _hit = false;
+        _boxCollider.enabled = true;
+
         float localScaleX = transform.localScale.x;
-        if(Math.Sign(localScaleX) != _direction)
+        if (Math.Sign(localScaleX) != _direction)
             localScaleX = -localScaleX;
         transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
     }
