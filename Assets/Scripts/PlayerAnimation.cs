@@ -30,6 +30,5 @@ public class PlayerAnimation : MonoBehaviour
     public void UpdateShootingAnimation(bool isShooting, bool isRunning)
     {
         anim.SetBool("shStraight", isShooting && !isRunning);
-        anim.SetBool("shRunStraight", isShooting && isRunning);
     }
 }
