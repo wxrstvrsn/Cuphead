@@ -51,7 +51,7 @@ public class Player : Entity
 
     private void UpdateAnimationStates()
     {
-        _playerAnim.SetGrounded(IsGrounded());
+        _playerAnim.SetGrounded(IsGrounded() || IsGroundedOnWall());
     }
 }
 

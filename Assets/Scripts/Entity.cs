@@ -9,26 +9,39 @@ public class Entity : MonoBehaviour
     [SerializeField] int healthPoints;
 
     private Rigidbody2D _body;
-    private BoxCollider2D _boxCollider;
+    private CapsuleCollider2D _capsuleCollider;
 
     protected virtual void Awake()
     {
         _body = GetComponent<Rigidbody2D>();
-        _boxCollider = GetComponent<BoxCollider2D>();
+        _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
+    /*protected void Move(float direction)
+    {
+        bool isBlockedHorizontally = IsTouchingWall() && _body.linearVelocity.y == 0 && !IsGrounded();
+
+        if (!IsTouchingWall())
+            _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
+        Flip(direction);
+    }
+    */
     protected void Move(float direction)
     {
-        bool isBlockedHorizontally = IsTouchingWall() && _body.linearVelocity.y == 0;
-        
-        if (!isBlockedHorizontally)
+        // Проверяем, блокирует ли стена — только если персонаж стоит на земле
+        bool isBlockedHorizontally = IsTouchingWall() && IsGrounded();
+
+        if (!IsTouchingWall())
+        {
             _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
+        }
+
         Flip(direction);
     }
 
     protected void Jump()
     {
-        if (IsGrounded())
+        if (IsGrounded() || IsGroundedOnWall())
         {
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce);
         }
@@ -36,27 +49,42 @@ public class Entity : MonoBehaviour
 
     protected bool IsGrounded()
     {
-        RaycastHit2D raycastHitGround = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
+        RaycastHit2D raycastHitGround = Physics2D.BoxCast(_capsuleCollider.bounds.center, _capsuleCollider.bounds.size,
+            0f,
             Vector2.down, 0.1f, groundLayer);
-        RaycastHit2D raycastHitWall = Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
-            Vector2.down, 0.1f, wallLayer);
-        return raycastHitWall || raycastHitGround;
+        return raycastHitGround;
+    }
+
+    protected bool IsGroundedOnWall()
+    {
+        Vector2 center = _capsuleCollider.bounds.center;
+
+        // Размер кастомный — уже, но по высоте такой же (или меньше)
+        Vector2 size = new Vector2(_capsuleCollider.bounds.size.x * 0.8f, _capsuleCollider.bounds.size.y);
+
+        float distance = 0.1f;
+
+        RaycastHit2D raycastHitWall = Physics2D.BoxCast(center, size, 0f, Vector2.down, distance, wallLayer);
+        return raycastHitWall.collider != null;
     }
 
     protected bool IsTouchingWall()
     {
-        Vector2 boxSize = _boxCollider.bounds.size;
-        boxSize.y *= 0.1f; // уменьшили высоту вдвое (можно и 0.3f, 0.7f и т.д.)
+        Vector2 center = _capsuleCollider.bounds.center;
+        float direction = Mathf.Sign(transform.localScale.x);
+        center.x += direction * _capsuleCollider.bounds.extents.x * 0.9f; // смещаем ближе к краю
 
-        return Physics2D.BoxCast(
-            _boxCollider.bounds.center,
-            boxSize,
-            0f,
-            Vector2.right * transform.localScale.x,
-            0.3f,
-            wallLayer
-        );
+        Vector2 size = _capsuleCollider.bounds.size;
+        size.y *= 0.5f; // Уменьшаем по высоте, чтобы не ловить стену в прыжке
+
+        return Physics2D.BoxCast(center, size, 0f, Vector2.right * direction, 0.1f, wallLayer);
     }
+
+    /*protected bool IsTouchingWall()
+    {
+        return Physics2D.BoxCast(_capsuleCollider.bounds.center, _capsuleCollider.bounds.size, 0f,
+            Vector2.right * transform.localScale.x, 0.3f, wallLayer);
+    }*/
 
     protected void Flip(float direction)
     {
