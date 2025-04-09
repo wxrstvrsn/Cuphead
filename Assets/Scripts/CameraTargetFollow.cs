@@ -1,43 +1,57 @@
 using UnityEngine;
 
-public class CameraTargetFollow : MonoBehaviour
+public class SmartCameraZoneFollow : MonoBehaviour
 {
-    [SerializeField] private Transform player;      // игрок
-    [SerializeField] private float yThreshold = 1f; // насколько выше/ниже должен прыгнуть
-    [SerializeField] private float verticalSmoothTime = 0.2f;
-    [SerializeField] private float horizontalSmoothTime = 0.05f;
+    [SerializeField] private Transform target;
+    [SerializeField] private Vector2 followZoneSize = new Vector2(4f, 2f); // ширина и высота зоны слежения (в мировых координатах)
+    [SerializeField] private float smoothSpeed = 5f;
+    [SerializeField] private float minY = 0f;
 
-    private Vector3 velocity = Vector3.zero;
-    private float targetY;
-    private bool initialized = false;
+    private Camera cam;
 
-    private void LateUpdate()
+    void Start()
     {
-        if (!player) return;
+        cam = Camera.main;
+        if (target == null)
+            Debug.LogError("SmartCameraZoneFollow: Target не задан!");
+    }
 
-        Vector3 targetPosition = transform.position;
+    void LateUpdate()
+    {
+        if (target == null) return;
 
-        // Следим по X всегда
-        targetPosition.x = Mathf.SmoothDamp(transform.position.x, player.position.x, ref velocity.x, horizontalSmoothTime);
+        Vector3 cameraPos = transform.position;
+        Vector3 targetPos = target.position;
 
-        // Первичная инициализация Y
-        if (!initialized)
-        {
-            targetY = player.position.y;
-            targetPosition.y = targetY;
-            initialized = true;
-        }
+        // Горизонтальное слежение всегда
+        float leftBound = cameraPos.x - followZoneSize.x / 2f;
+        float rightBound = cameraPos.x + followZoneSize.x / 2f;
 
-        // Обновляем Y только если игрок ушёл выше или ниже порога
-        if (Mathf.Abs(player.position.y - targetY) > yThreshold)
-        {
-            targetY = player.position.y;
-        }
+        if (targetPos.x < leftBound)
+            cameraPos.x = targetPos.x + followZoneSize.x / 2f;
+        else if (targetPos.x > rightBound)
+            cameraPos.x = targetPos.x - followZoneSize.x / 2f;
 
-        // Плавно догоняем по Y (если обновили)
-        targetPosition.y = Mathf.SmoothDamp(transform.position.y, targetY, ref velocity.y, verticalSmoothTime);
+        // Вертикальное слежение — только если игрок вышел за "рамку"
+        float bottomBound = cameraPos.y - followZoneSize.y / 2f;
+        float topBound = cameraPos.y + followZoneSize.y / 2f;
 
-        // Обновляем позицию цели камеры
-        transform.position = targetPosition;
+        if (targetPos.y < bottomBound)
+            cameraPos.y = targetPos.y + followZoneSize.y / 2f;
+        else if (targetPos.y > topBound)
+            cameraPos.y = targetPos.y - followZoneSize.y / 2f;
+
+        // Ограничение по минимальной высоте
+        cameraPos.y = Mathf.Max(cameraPos.y, minY);
+
+        // Плавное движение
+        transform.position = Vector3.Lerp(transform.position, cameraPos, Time.deltaTime * smoothSpeed);
+    }
+
+    // Гизмо для отображения зоны слежения в редакторе
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, new Vector3(followZoneSize.x, followZoneSize.y, 0));
     }
 }

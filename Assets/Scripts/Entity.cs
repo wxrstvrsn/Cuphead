@@ -19,7 +19,9 @@ public class Entity : MonoBehaviour
 
     protected void Move(float direction)
     {
-        if (!IsTouchingWall())
+        bool isBlockedHorizontally = IsTouchingWall() && _body.linearVelocity.y == 0;
+        
+        if (!isBlockedHorizontally)
             _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
         Flip(direction);
     }
@@ -43,8 +45,17 @@ public class Entity : MonoBehaviour
 
     protected bool IsTouchingWall()
     {
-        return Physics2D.BoxCast(_boxCollider.bounds.center, _boxCollider.bounds.size, 0f,
-            Vector2.right * transform.localScale.x, 0.3f, wallLayer);
+        Vector2 boxSize = _boxCollider.bounds.size;
+        boxSize.y *= 0.1f; // уменьшили высоту вдвое (можно и 0.3f, 0.7f и т.д.)
+
+        return Physics2D.BoxCast(
+            _boxCollider.bounds.center,
+            boxSize,
+            0f,
+            Vector2.right * transform.localScale.x,
+            0.3f,
+            wallLayer
+        );
     }
 
     protected void Flip(float direction)

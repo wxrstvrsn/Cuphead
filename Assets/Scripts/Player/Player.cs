@@ -4,6 +4,12 @@ using UnityEngine;
 /// Скрипт обработки перемещений персонажа игрока
 /// </summary>
 public class Player : Entity
+
+/* TODO:
+    Добавить в Scene объекты -- deadZone в тех местах на мапе,
+    где персонаж может провалиться -- и если OnTriggerEnter2D
+    то GetDamage() + SetInvincibilty() (мб в один метод типа завернуть)
+    и подкидываем его вверх */
 {
     // подходящее значение для gravityScale - 5
     private PlayerAnimation  _playerAnim;
