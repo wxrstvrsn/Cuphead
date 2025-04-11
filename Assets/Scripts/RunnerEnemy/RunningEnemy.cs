@@ -9,7 +9,21 @@ public class RunningEnemy : Entity
     [SerializeField] private float _speed;
     [SerializeField] private float _timeToLive;
     [SerializeField] private float _destroyDistance;
+
+    /// <summary>
+    /// Расстояние до игрока для триггеринга активации противника
+    /// </summary>
+    [SerializeField] private float _activationRadius;
+
+    /// <summary>
+    /// Геттер (испол-ся в PollManager) расстояния для активации противника 
+    /// </summary>
+    /// <returns></returns>
+    public float GetActivationRadius() => _activationRadius;
     
+    
+
+
     private bool _isActive;
     private float _direction;
 
@@ -46,7 +60,7 @@ public class RunningEnemy : Entity
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player Damaged!!!");
-            // TODO: getDamage in Player
+            
         }
     }
 

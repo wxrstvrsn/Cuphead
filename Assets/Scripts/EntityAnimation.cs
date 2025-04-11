@@ -19,7 +19,7 @@ public class EntityAnimation : MonoBehaviour
     {
         _anim.SetBool("grounded", isGrounded);
     }
-    
+
     public virtual void PlayJump()
     {
         Debug.Log(">>> Jump Triggered");
@@ -27,8 +27,8 @@ public class EntityAnimation : MonoBehaviour
         _anim.SetTrigger("jump");
     }
 
-    public virtual void UpdateShootingAnimation(bool isShooting, bool isRunning)
+    public virtual void PlayDeath()
     {
-        _anim.SetBool("shStraight", isShooting && !isRunning);
+        _anim.SetTrigger("death");
     }
 }

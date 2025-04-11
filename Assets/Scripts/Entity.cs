@@ -1,4 +1,6 @@
+using Unity.Mathematics.Geometry;
 using UnityEngine;
+using Math = System.Math;
 
 public class Entity : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class Entity : MonoBehaviour
     [SerializeField] LayerMask wallLayer;
     [SerializeField] int healthPoints;
 
-    private Rigidbody2D _body;
+    public Rigidbody2D _body { get; private set; }
     private CapsuleCollider2D _capsuleCollider;
 
     protected virtual void Awake()
@@ -17,20 +19,8 @@ public class Entity : MonoBehaviour
         _capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
-    /*protected void Move(float direction)
-    {
-        bool isBlockedHorizontally = IsTouchingWall() && _body.linearVelocity.y == 0 && !IsGrounded();
-
-        if (!IsTouchingWall())
-            _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
-        Flip(direction);
-    }
-    */
     protected void Move(float direction)
     {
-        // Проверяем, блокирует ли стена — только если персонаж стоит на земле
-        bool isBlockedHorizontally = IsTouchingWall() && IsGrounded();
-
         if (!IsTouchingWall())
         {
             _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
@@ -44,6 +34,7 @@ public class Entity : MonoBehaviour
         if (IsGrounded() || IsGroundedOnWall())
         {
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce);
+            print($"jupForce in Entity :: Jump: {jumpForce}");
         }
     }
 
@@ -80,12 +71,6 @@ public class Entity : MonoBehaviour
         return Physics2D.BoxCast(center, size, 0f, Vector2.right * direction, 0.1f, wallLayer);
     }
 
-    /*protected bool IsTouchingWall()
-    {
-        return Physics2D.BoxCast(_capsuleCollider.bounds.center, _capsuleCollider.bounds.size, 0f,
-            Vector2.right * transform.localScale.x, 0.3f, wallLayer);
-    }*/
-
     protected void Flip(float direction)
     {
         if (direction > 0.01f)
@@ -98,6 +83,19 @@ public class Entity : MonoBehaviour
 
     protected void GetDamage()
     {
-        healthPoints -= 1;
+        healthPoints = Math.Max(healthPoints - 1, 0);
+
+        if (healthPoints <= 0)
+        {
+            Die();
+        }
+        else
+        {
+        }
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
     }
 }

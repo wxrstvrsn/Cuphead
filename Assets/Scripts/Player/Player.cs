@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Скрипт обработки перемещений персонажа игрока
@@ -12,10 +14,27 @@ public class Player : Entity
     и подкидываем его вверх */
 {
     // подходящее значение для gravityScale - 5
+    /// <summary>
+    /// Экземпляр класса, для управления анимацией персонажа
+    /// </summary>
     private PlayerAnimation  _playerAnim;
+    /// <summary>
+    /// Экземпляр класса, для управления механикой стрельбы
+    /// </summary>
     private PlayerShooting _playerShoot;
+    /// <summary>
+    /// Ссылка из Inspector'a на Layer для "коллайдеров-ям"
+    /// </summary>
+    [SerializeField] private LayerMask deadZoneLayer;
 
+    /// <summary>
+    /// Булевая переменная состояния бега
+    /// </summary>
     private bool _isRunning;
+    /// <summary>
+    /// Метод-геттер значения переменной состояния бега
+    /// </summary>
+    /// <returns></returns>
     public bool IsRunning() => _isRunning;
     
     /*public float GetVelocityX => */
@@ -31,7 +50,9 @@ public class Player : Entity
         HandleInput();
         UpdateAnimationStates();
     }
-
+    /// <summary>
+    /// Обработка управления персонажем
+    /// </summary>
     private void HandleInput()
     {
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -49,9 +70,26 @@ public class Player : Entity
         _playerAnim.SetRunning(isMoving);
     }
 
+    /// <summary>
+    /// Обновление параметра Grounded из Animator'a
+    /// </summary>
     private void UpdateAnimationStates()
     {
         _playerAnim.SetGrounded(IsGrounded() || IsGroundedOnWall());
+    }
+
+    /// <summary>
+    /// HandleDeadZone falling
+    /// </summary>
+    /// <param name="other"></param>
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("DeadZone"))
+        {
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
+            _playerAnim.PlayHit();
+            
+        }
     }
 }
 
