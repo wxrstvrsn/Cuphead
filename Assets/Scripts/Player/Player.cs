@@ -34,8 +34,13 @@ public class Player : Entity
     /// </summary>
     [SerializeField] private float dashForce;
 
+    private bool _isDashing = false;
+    [SerializeField] private float _dashDuration;
+    private float _dashTimer;
+    private float _originalGravityScale;
+
     /// <summary>
-    /// Булевая переменная состояния бега
+    /// Булевая переменная состояния бега                       
     /// </summary>
     private bool _isRunning;
 
@@ -55,6 +60,23 @@ public class Player : Entity
 
     private void Update()
     {
+        _playerAnim.SetDashing(_isDashing);
+        if (_isDashing)
+        {
+            _dashTimer -= Time.deltaTime;
+
+            
+            _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
+
+            if (_dashTimer <= 0f)
+            {
+                _isDashing = false;
+                _body.gravityScale = _originalGravityScale;
+            }
+
+            return;
+        }
+
         HandleInput();
         UpdateAnimationStates();
     }
@@ -67,19 +89,15 @@ public class Player : Entity
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         bool isMoving = horizontalInput != 0;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            Dash();
-
-            _playerAnim.PlayDash();
-        }
-
         Move(horizontalInput);
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            Dash();
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Jump();
 
+            Jump();
             _playerAnim.PlayJump();
         }
 
@@ -88,8 +106,22 @@ public class Player : Entity
 
     private void Dash()
     {
-        float direction = Mathf.Sign(_body.transform.localScale.x);
-        _body.linearVelocity = new Vector2(dashForce * direction, _body.linearVelocity.y);
+        _isDashing = true;
+        _dashTimer = _dashDuration;
+        
+        _originalGravityScale = _body.gravityScale;
+
+        float isGroundedMultiplicator = (IsGrounded() ? 1 : 0);
+        
+        _body.gravityScale *= isGroundedMultiplicator;
+
+        
+        _body.linearVelocity = new Vector2(_body.linearVelocity.x, _body.linearVelocity.y * isGroundedMultiplicator);
+
+        
+        float direction = Mathf.Sign(transform.localScale.x);
+        _body.linearVelocity = new Vector2(dashForce * direction, _body.linearVelocity.y * isGroundedMultiplicator);
+
     }
 
     /// <summary>

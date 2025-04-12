@@ -1,3 +1,4 @@
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class PlayerAnimation : EntityAnimation
@@ -26,5 +27,10 @@ public class PlayerAnimation : EntityAnimation
     public virtual void PlayHit()
     {
         _anim.SetTrigger("hit");
+    }
+
+    public void SetDashing(bool isDashing)
+    {
+        _anim.SetBool("dashing", isDashing);
     }
 }

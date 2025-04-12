@@ -12650,6 +12650,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   dashForce: 20
+  _dashDuration: 0.4
 --- !u!50 &1823113350
 Rigidbody2D:
   serializedVersion: 5
