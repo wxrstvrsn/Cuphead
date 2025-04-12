@@ -22,7 +22,7 @@ public class EntityAnimation : MonoBehaviour
 
     public virtual void PlayJump()
     {
-        Debug.Log(">>> Jump Triggered");
+        // Debug.Log(">>> Jump Triggered");
         _anim.ResetTrigger("jump");
         _anim.SetTrigger("jump");
     }

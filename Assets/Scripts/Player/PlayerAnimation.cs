@@ -29,6 +29,10 @@ public class PlayerAnimation : EntityAnimation
         _anim.SetTrigger("hit");
     }
 
+    /// <summary>
+    /// Апдейтер значения булевой переменной аниматора "dashing" 
+    /// </summary>
+    /// <param name="isDashing"></param>
     public void SetDashing(bool isDashing)
     {
         _anim.SetBool("dashing", isDashing);

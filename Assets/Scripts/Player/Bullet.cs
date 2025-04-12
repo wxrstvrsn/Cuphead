@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         float wavePower = Mathf.Sin(Time.time * 10f) * 0.01f;
         transform.position += new Vector3(0f, wavePower, 0f);
         
-        /*TODO: исправить баг с тем, что при начале движения во
+        /*FIXED: исправить баг с тем, что при начале движения во
             время стрельбы пули друг друга догоняют
             может, необходимо добавить некую зависимость
             от положения игрока (хотя и так есть BulletPoint)

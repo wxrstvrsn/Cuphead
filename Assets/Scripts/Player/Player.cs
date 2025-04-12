@@ -61,19 +61,22 @@ public class Player : Entity
     private void Update()
     {
         _playerAnim.SetDashing(_isDashing);
+
         if (_isDashing)
         {
             _dashTimer -= Time.deltaTime;
 
-            
+            // зануляем скорость по Y
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, 0f);
 
             if (_dashTimer <= 0f)
             {
+                // Если кулдаун рывка прошел -- возвращаем физику и меняем булевую
                 _isDashing = false;
                 _body.gravityScale = _originalGravityScale;
             }
 
+            // Игнорируем пользовательский ввод пока в рывке 
             return;
         }
 
@@ -96,7 +99,6 @@ public class Player : Entity
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-
             Jump();
             _playerAnim.PlayJump();
         }
@@ -108,20 +110,18 @@ public class Player : Entity
     {
         _isDashing = true;
         _dashTimer = _dashDuration;
-        
+
         _originalGravityScale = _body.gravityScale;
 
+        // Кастим булевую в вещественную шоб потом удобно управлять скоростью по У
+        // в зависимости в прыжке рывок чи не 
         float isGroundedMultiplicator = (IsGrounded() ? 1 : 0);
-        
-        _body.gravityScale *= isGroundedMultiplicator;
 
-        
+        _body.gravityScale *= isGroundedMultiplicator;
         _body.linearVelocity = new Vector2(_body.linearVelocity.x, _body.linearVelocity.y * isGroundedMultiplicator);
 
-        
         float direction = Mathf.Sign(transform.localScale.x);
         _body.linearVelocity = new Vector2(dashForce * direction, _body.linearVelocity.y * isGroundedMultiplicator);
-
     }
 
     /// <summary>
