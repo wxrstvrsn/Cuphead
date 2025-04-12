@@ -20,7 +20,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Update()
     {
-        _isShooting = Input.GetKey(KeyCode.Z);
+        _isShooting = Input.GetKey(KeyCode.X);
         UpdateAnimation();
 
         HandleShooting();

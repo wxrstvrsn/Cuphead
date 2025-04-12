@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -6,7 +7,6 @@ using UnityEngine.Serialization;
 /// Скрипт обработки перемещений персонажа игрока
 /// </summary>
 public class Player : Entity
-
 /* TODO:
     Добавить в Scene объекты -- deadZone в тех местах на мапе,
     где персонаж может провалиться -- и если OnTriggerEnter2D
@@ -17,26 +17,34 @@ public class Player : Entity
     /// <summary>
     /// Экземпляр класса, для управления анимацией персонажа
     /// </summary>
-    private PlayerAnimation  _playerAnim;
+    private PlayerAnimation _playerAnim;
+
     /// <summary>
     /// Экземпляр класса, для управления механикой стрельбы
     /// </summary>
     private PlayerShooting _playerShoot;
+
     /// <summary>
     /// Ссылка из Inspector'a на Layer для "коллайдеров-ям"
     /// </summary>
     [SerializeField] private LayerMask deadZoneLayer;
 
     /// <summary>
+    /// Переменная значения силы рывка
+    /// </summary>
+    [SerializeField] private float dashForce;
+
+    /// <summary>
     /// Булевая переменная состояния бега
     /// </summary>
     private bool _isRunning;
+
     /// <summary>
     /// Метод-геттер значения переменной состояния бега
     /// </summary>
     /// <returns></returns>
     public bool IsRunning() => _isRunning;
-    
+
     /*public float GetVelocityX => */
 
     protected override void Awake()
@@ -50,6 +58,7 @@ public class Player : Entity
         HandleInput();
         UpdateAnimationStates();
     }
+
     /// <summary>
     /// Обработка управления персонажем
     /// </summary>
@@ -58,9 +67,16 @@ public class Player : Entity
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         bool isMoving = horizontalInput != 0;
 
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Dash();
+
+            _playerAnim.PlayDash();
+        }
+
         Move(horizontalInput);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             Jump();
 
@@ -68,6 +84,12 @@ public class Player : Entity
         }
 
         _playerAnim.SetRunning(isMoving);
+    }
+
+    private void Dash()
+    {
+        float direction = Mathf.Sign(_body.transform.localScale.x);
+        _body.linearVelocity = new Vector2(dashForce * direction, _body.linearVelocity.y);
     }
 
     /// <summary>
@@ -88,7 +110,6 @@ public class Player : Entity
         {
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
             _playerAnim.PlayHit();
-            
         }
     }
 }
