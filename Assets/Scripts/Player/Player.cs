@@ -60,6 +60,9 @@ public class Player : Entity
 
     private void Update()
     {
+        /*TODO:
+            исправить глитч с дэшем, 
+            инфинити дэш нот гуд */
         _playerAnim.SetDashing(_isDashing);
 
         if (_isDashing)

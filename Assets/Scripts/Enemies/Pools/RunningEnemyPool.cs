@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // TODO: реализовать корректную активацию
@@ -11,6 +9,7 @@ public class RunnerEnemyPool : MonoBehaviour
     /// Ссылка на массив в Inspector для бегущих противников
     /// </summary>
     [SerializeField] private RunningEnemy[] _runners;
+
     /// <summary>
     /// Ссылка на игрока для регания расстояния до него от точки спавна противника
     /// </summary>
@@ -21,9 +20,12 @@ public class RunnerEnemyPool : MonoBehaviour
     /// </summary>
     private float[] _timers;
 
+    private float _spawnCooldown = 10.0f;
+
     private void Awake()
     {
         _timers = new float[_runners.Length];
+
         for (int i = 0; i < _runners.Length; i++)
         {
             _runners[i].gameObject.SetActive(false);
@@ -41,10 +43,13 @@ public class RunnerEnemyPool : MonoBehaviour
             /*TODO: а именно: ес проверка тру, тут дергаем Init() из RunningEnemy()
                 который еще не написан(
                 но над написать */
-            if ((_timers[i] >= _runners[i].GetTimeToLive())
-                && (_runners[i].gameObject.activeInHierarchy)
-                && (Vector2.Distance(_target.position, _runners[i].transform.position) <= _runners[i].GetActivationRadius()))
+            bool allowedToSpawn = (!_runners[i].gameObject.activeInHierarchy &&
+                                   Vector2.Distance(_target.position, _runners[i].transform.position) <
+                                   _runners[i].GetActivationRadius() && _timers[i] >= _spawnCooldown);
+            if (allowedToSpawn)
             {
+                _runners[i].Activate();
+                _timers[i] = 0;
             }
         }
     }
