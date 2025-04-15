@@ -1,6 +1,16 @@
 ﻿using System;
 using UnityEngine;
 
+/*
+TODO:
+    сделать абстрактным и наследовать PlayerBullet и EnemyBullet ??????
+    RigidBody2D надо вешать на пульку - ???
+    Если делать стрельбу типа по параболе -- gravity и сложная реализцаия
+    расчета вектора, по которой пускать пульку из врага, чтобы
+    она по баллистике попала в игрока, если он не увернется...
+    трайхард кароче
+    */
+
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
@@ -23,22 +33,27 @@ public class Bullet : MonoBehaviour
     {
         if (_hit) return;
 
+        Move();
+
+        _lifeTime += Time.deltaTime;
+        if (_lifeTime > bulletLifeTime)
+            gameObject.SetActive(false);
+    }
+
+    private void Move()
+    {
         float movementSpeed = _direction * speed * Time.deltaTime;
         transform.Translate(Vector3.right * movementSpeed);
 
         // some fx -- continuous shaking along oY axis
         float wavePower = Mathf.Sin(Time.time * 10f) * 0.01f;
         transform.position += new Vector3(0f, wavePower, 0f);
-        
+
         /*FIXED: исправить баг с тем, что при начале движения во
             время стрельбы пули друг друга догоняют
             может, необходимо добавить некую зависимость
             от положения игрока (хотя и так есть BulletPoint)
             короч подумать надо*/
-
-        _lifeTime += Time.deltaTime;
-        if (_lifeTime > bulletLifeTime)
-            gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

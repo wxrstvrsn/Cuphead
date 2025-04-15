@@ -10,23 +10,10 @@ public class RunningEnemy : Enemy
     [SerializeField] private float _timeToLive;
     [SerializeField] private float _destroyDistance;
 
-    /// <summary>
-    /// Расстояние до игрока для триггеринга активации противника
-    /// </summary>
-    [SerializeField] private float _activationRadius;
-
-    /// <summary>
-    /// Геттер (испол-ся в PollManager) расстояния для активации противника 
-    /// </summary>
-    /// <returns></returns>
-    public float GetActivationRadius() => _activationRadius;
-
 
     private bool _isActive;
     private float _direction;
     private float _timer;
-
-    public float GetTimeToLive() => _timeToLive;
 
     private void Awake()
     {
