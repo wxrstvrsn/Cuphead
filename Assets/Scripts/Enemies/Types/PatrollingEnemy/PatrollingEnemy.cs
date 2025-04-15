@@ -13,14 +13,14 @@ public class PatrollingEnemy : Enemy
     private EnemyAnimation _enemyAnimation;
     private bool _isActive;
     private float _disableTimer;
-    private float _direction;
+    private float _direction = 1;
 
     protected override void Awake()
     {
         base.Awake();
         _enemyAnimation = GetComponent<EnemyAnimation>();
-        
-        if(_enemyAnimation == null)
+
+        if (_enemyAnimation == null)
             Debug.LogError("PatrollingEnemy: NULL REFERENCE");
     }
 
@@ -45,6 +45,11 @@ public class PatrollingEnemy : Enemy
 
             _disableTimer = 0;
             _isActive = true;
+        }
+
+        if (_isActive)
+        {
+            print("PatrollingEnemy tryna moving!!!");
             MoveAI();
         }
 
@@ -56,8 +61,17 @@ public class PatrollingEnemy : Enemy
     {
         Move(_direction);
 
-        _direction = (_direction == 1 && transform.position.x >= _endPoint.position.x) ? -1 : 0f;
-        _direction = (_direction == -1 && transform.position.x <= _startPoint.position.x) ? 1 : 0f;
+        /*_direction = (_direction == 1 && transform.position.x >= _endPoint.position.x) ? -1 : 0f;
+        _direction = (_direction == -1 && transform.position.x <= _startPoint.position.x) ? 1 : 0f;*/
+
+        if (_direction == 1 && transform.position.x >= _endPoint.position.x)
+        {
+            _direction = -1;
+        }
+        else if (_direction == -1 && transform.position.x <= _startPoint.position.x)
+        {
+            _direction = 1;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
