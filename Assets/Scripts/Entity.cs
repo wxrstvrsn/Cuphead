@@ -6,12 +6,14 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] protected float speed;
     [SerializeField] protected float jumpForce;
-    [SerializeField] LayerMask groundLayer;
-    [SerializeField] LayerMask wallLayer;
+    [SerializeField] protected LayerMask groundLayer;
+    [SerializeField] protected LayerMask wallLayer;
     [SerializeField] int healthPoints;
 
     public Rigidbody2D _body { get; private set; }
     private CapsuleCollider2D _capsuleCollider;
+    
+    protected CapsuleCollider2D GetCapsuleCollider => _capsuleCollider;
 
     protected virtual void Awake()
     {

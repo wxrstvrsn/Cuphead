@@ -33,15 +33,16 @@ public class RunnerEnemyPool : MonoBehaviour
         }
     }
 
-    /*FIXED:
+    /*FIXED: 
         Реализовать нормальную активацию объектов pool'a*/
-    
+
     private void Update()
     {
         for (int i = 0; i < _runners.Length; i++)
         {
             _timers[i] += Time.deltaTime;
-            /*TODO: а именно: ес проверка тру, тут дергаем Init() из RunningEnemy()
+            /*FIXED
+                а именно: ес проверка тру, тут дергаем Init() из RunningEnemy()
                 который еще не написан(
                 но над написать */
             bool allowedToSpawn = (!_runners[i].gameObject.activeInHierarchy &&
@@ -50,6 +51,7 @@ public class RunnerEnemyPool : MonoBehaviour
             if (allowedToSpawn)
             {
                 _runners[i].Activate();
+                print("RUNNER ACTIVATED");
                 _timers[i] = 0;
             }
         }

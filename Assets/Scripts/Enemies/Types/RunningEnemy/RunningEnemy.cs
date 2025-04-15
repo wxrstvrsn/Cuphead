@@ -1,53 +1,156 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-// класс для врагов, object pooling позже
+/// <summary>
+/// Бегущий противник: активируется, когда игрок в радиусе,
+/// бежит в его сторону, прыгает через препятствия и деактивируется при удалении.
+/// </summary>
 public class RunningEnemy : Enemy
 {
-    [SerializeField] private Transform _player;
-    [SerializeField] private float _speed;
-    [SerializeField] private float _timeToLive;
-    [SerializeField] private float _destroyDistance;
+    [Header("AI Parameters")] [SerializeField]
+    private Transform _player;
 
+    // [SerializeField] private float _activationRadius = 5f;
+    [SerializeField] private float _destroyDistance = 15f;
+    [SerializeField] private float _jumpDistance = 1.2f;
 
-    private bool _isActive;
-    private float _direction;
-    private float _timer;
+    private EnemyAnimation _enemyAnimation;
 
-    private void Awake()
+    private Vector3 _spawnPoint;
+
+    private bool _isActive = false;
+    private float _direction = -1f;
+    private float _cooldownTimer;
+
+    protected override void Awake()
     {
-        _isActive = false;
+        base.Awake();
+        _enemyAnimation = GetComponent<EnemyAnimation>();
+        _spawnPoint = transform.position;
+
+        if (_player == null)
+            Debug.LogWarning("RunningEnemy: ссылка на игрока не установлена!");
     }
 
     private void Update()
     {
-        if (!_isActive || _player == null) return;
+        if (_player == null) return;
 
-        Move(_direction);
+        if (!_isActive)
+        {
+            TryActivate();
+            return;
+        }
 
+        HandleAI();
+        _enemyAnimation.SetGrounded(IsGrounded() || IsGroundedOnWall());
+
+        // Проверка выхода за пределы
         if (Mathf.Abs(transform.position.x - _player.position.x) > _destroyDistance)
         {
             Deactivate();
         }
     }
 
-
-    public override void Activate()
+    /// <summary>
+    /// AI-поведение: движение и прыжки через препятствия
+    /// </summary>
+    private void HandleAI()
     {
-        if (_player == null)
+        bool grounded = IsGrounded() || IsGroundedOnWall();
+
+        if (grounded && IsObstacleAhead())
         {
-            Debug.LogWarning("RunningEnemy: reference to target (player) is null.");
+            print("RUNNER TRYNA JUMP");
+            Jump();
+            _enemyAnimation.PlayJump();
         }
 
-        _direction = Mathf.Sign(_player.position.x - transform.position.x);
+        if (grounded)
+        {
+            Move(_direction);
+        }
+    }
+
+    /// <summary>
+    /// Проверка на наличие препятствия впереди
+    /// </summary>
+    private bool IsObstacleAhead()
+    {
+        CapsuleCollider2D collider = GetCapsuleCollider;
+        Vector2 center = collider.bounds.center;
+        center.x += _direction * collider.bounds.extents.x * 0.9f;
+
+        Vector2 size = collider.bounds.size;
+        size.y *= 0.3f;
+        size.x *= 0.9f;
+
+        float distance = _jumpDistance;
+
+        RaycastHit2D hit = Physics2D.BoxCast(center, size, 0f, Vector2.right * _direction, distance, wallLayer);
+
+        // Визуализация (только в редакторе, не влияет на игру)
+        Color rayColor = hit.collider != null ? Color.red : Color.green;
+        Debug.DrawRay(center, Vector2.right * (_direction * distance), rayColor);
+        /*
+        |---------------|------------------------------------------------|
+        | 🔴луч         |Есть столкновение (прыгать будем)               |
+        |---------------|------------------------------------------------|
+        | 🟢луч         |Всё чисто, можно бежать                         |
+        |---------------|------------------------------------------------|
+        |🟡прямоугольник|Размер BoxCast — насколько большой хитбокс врага|
+        |---------------|------------------------------------------------|
+        */
+        
+        
+        
+        
+
+
+        // Также отрисуем размер box'a (прямоугольник)
+        
+
+        Vector3 center3D = new Vector3(center.x, center.y, 0f);
+        Vector3 halfSize = new Vector3(size.x, size.y, 0f) * 0.5f;
+        
+        Debug.DrawLine(center3D - halfSize, center3D + halfSize, Color.yellow);
+
+        if (hit.collider != null)
+            Debug.Log($"[RunningEnemy] Обнаружено препятствие: {hit.collider.gameObject.name}");
+
+        return hit.collider != null;
+    }
+
+    /// <summary>
+    /// Активация по событию ObjectPool или вручную
+    /// </summary>
+    public override void Activate()
+    {
+        transform.position = _spawnPoint;
         _isActive = true;
+        _direction = Mathf.Sign(_player.position.x - transform.position.x);
+        _cooldownTimer = 0f;
         gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Автоматическая активация по расстоянию
+    /// </summary>
+    public void TryActivate()
+    {
+        if (Vector2.Distance(transform.position, _player.position) <= _activationRadius)
+        {
+            _isActive = true;
+            _direction = Mathf.Sign(_player.position.x - transform.position.x);
+        }
+    }
+
+    /// <summary>
+    /// Выключение врага и возврат в начальное положение
+    /// </summary>
     public override void Deactivate()
     {
         _isActive = false;
+        transform.position = _spawnPoint;
         gameObject.SetActive(false);
     }
 
@@ -57,8 +160,8 @@ public class RunningEnemy : Enemy
 
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Player Damaged!!!");
-            // TODO: GetDamage()
+            Debug.Log("💥 Игрок получил урон от RunningEnemy");
+            // TODO: Вызов GetDamage() у игрока
         }
     }
 }

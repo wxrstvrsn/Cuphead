@@ -11,6 +11,6 @@ public class EnemyAnimation : EntityAnimation
     {
         _anim.SetTrigger("popOut");
     }
-    
+
     public bool GetRunning() => _anim.GetBool("running");
 }
