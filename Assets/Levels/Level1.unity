@@ -5813,7 +5813,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000085211167, y: -0.000008793523, z: 0.0000020571797, w: 1}
-  m_LocalPosition: {x: 4.2, y: 2.9, z: -100}
+  m_LocalPosition: {x: 4, y: 2.9, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5832,10 +5832,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1823113344}
-  followZoneSize: {x: 1, y: 2}
+  followZoneSize: {x: 6, y: 2}
   smoothTime: 0.2
   minY: 2
-  horizontalBias: -10
+  minX: 4
+  horizontalBias: 0
 --- !u!1 &525895729
 GameObject:
   m_ObjectHideFlags: 0
@@ -13256,7 +13257,7 @@ Transform:
   m_GameObject: {fileID: 1069512392}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.35, y: 22.6, z: -0.0010306989}
+  m_LocalPosition: {x: -25.19, y: 22.6, z: -0.0010306989}
   m_LocalScale: {x: 0.105631396, y: 24.626392, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

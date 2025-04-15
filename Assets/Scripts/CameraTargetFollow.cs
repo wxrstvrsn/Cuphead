@@ -3,11 +3,16 @@ using UnityEngine;
 public class SmartCameraZoneFollow : MonoBehaviour
 {
     [SerializeField] private Transform target;
-    [SerializeField] private Vector2 followZoneSize = new Vector2(4f, 2f);
-    [SerializeField] private float smoothTime = 0.2f; // Чем меньше, тем быстрее камера реагирует
-    [SerializeField] private float minY = 0f;
+    [SerializeField] private Vector2 followZoneSize;
+    [SerializeField] private float smoothTime;
+    [SerializeField] private float minY;
+    [SerializeField] private float minX;
 
     private Vector3 velocity = Vector3.zero;
+
+    // Смещение зоны влево (0.7 = 70% вправо, 30% влево)
+    [Range(-10f, 10f)]
+    [SerializeField] private float horizontalBias;
 
     private void FixedUpdate()
     {
@@ -17,16 +22,16 @@ public class SmartCameraZoneFollow : MonoBehaviour
         Vector3 targetPos = target.position;
         Vector3 desiredPos = currentPos;
 
-        // Горизонтальные границы зоны
-        float leftBound = currentPos.x - followZoneSize.x / 2f;
-        float rightBound = currentPos.x + followZoneSize.x / 2f;
+        // Горизонтальные границы зоны слежения со смещением
+        float leftBound = currentPos.x - followZoneSize.x * (1 - horizontalBias);
+        float rightBound = currentPos.x + followZoneSize.x * horizontalBias;
 
         if (targetPos.x < leftBound)
-            desiredPos.x = targetPos.x + followZoneSize.x / 2f;
+            desiredPos.x = targetPos.x + followZoneSize.x * (1 - horizontalBias);
         else if (targetPos.x > rightBound)
-            desiredPos.x = targetPos.x - followZoneSize.x / 2f;
+            desiredPos.x = targetPos.x - followZoneSize.x * horizontalBias;
 
-        // Вертикальные границы зоны
+        // Вертикальные границы
         float bottomBound = currentPos.y - followZoneSize.y / 2f;
         float topBound = currentPos.y + followZoneSize.y / 2f;
 
@@ -37,10 +42,10 @@ public class SmartCameraZoneFollow : MonoBehaviour
 
         // Ограничение по нижней границе
         desiredPos.y = Mathf.Max(desiredPos.y, minY);
+        desiredPos.x = Mathf.Max(desiredPos.x, minX);
 
-        // Плавное движение с SmoothDamp
+        // Плавное движение камеры
         Vector3 smoothedPosition = Vector3.SmoothDamp(currentPos, desiredPos, ref velocity, smoothTime);
-
         transform.position = smoothedPosition;
     }
 }
