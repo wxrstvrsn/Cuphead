@@ -5,26 +5,39 @@ using UnityEngine;
 /// </summary>
 public class PatrollingEnemy : Enemy
 {
-    [Header("Патрулирование")] [SerializeField]
+    [Header("Границы патрулируемой зоны")] [SerializeField]
     private Transform _startPoint;
 
     [SerializeField] private Transform _endPoint;
-    [SerializeField] private float _disableTime = 2f;
+
+    [Header("Время, которое Патрулянт неактивен")] [SerializeField]
+    private float _disableTime;
 
     private EnemyAnimation _enemyAnimation;
     private float _disableTimer;
     private float _direction = 1;
-    private bool _isActive = true;
+    private bool _isActive;
+    private bool _canDealDamage;
+    private CapsuleCollider2D _col;
+    
 
     protected override void Awake()
     {
         base.Awake();
+
+        _col = GetComponent<CapsuleCollider2D>();
+        _canDealDamage = true;
+        _isActive = true;
+
         _enemyAnimation = GetComponent<EnemyAnimation>();
 
         if (_enemyAnimation == null)
             Debug.LogError("EnemyAnimation не найден на " + gameObject.name);
     }
 
+    /* TODO: дописать: пока Патрулянт не
+        завершил анимацию PopOut() не начинать двигаться
+        и не включать running()  */
     private void Update()
     {
         if (_isActive)
@@ -33,6 +46,7 @@ public class PatrollingEnemy : Enemy
         }
         else
         {
+            _body.constraints = RigidbodyConstraints2D.FreezeAll;
             _disableTimer += Time.deltaTime;
 
             if (_enemyAnimation.GetRunning())
@@ -58,14 +72,19 @@ public class PatrollingEnemy : Enemy
             _direction = 1;
     }
 
+    /**/
+    // 
     /// <summary>
     /// Получение урона от пули
     /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerBullet"))
+        if (other.CompareTag("PlayerBullet") && _canDealDamage)
         {
+            _col.enabled = false;
+            _body.constraints = RigidbodyConstraints2D.FreezeAll;
             _isActive = false;
+            _canDealDamage = false;
             _disableTimer = 0f;
         }
     }
@@ -75,8 +94,14 @@ public class PatrollingEnemy : Enemy
     /// </summary>
     private void Reactivate()
     {
-        _isActive = true;
         _enemyAnimation.PlayPopOut();
+
+        _col.enabled = true;
+        _isActive = true;
+
+        _body.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        _canDealDamage = true;
         _disableTimer = 0f;
     }
 

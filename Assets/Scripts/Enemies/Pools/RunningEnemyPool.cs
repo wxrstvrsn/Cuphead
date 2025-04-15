@@ -33,8 +33,9 @@ public class RunnerEnemyPool : MonoBehaviour
         }
     }
 
-    /*TODO:
+    /*FIXED:
         Реализовать нормальную активацию объектов pool'a*/
+    
     private void Update()
     {
         for (int i = 0; i < _runners.Length; i++)
