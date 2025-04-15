@@ -2647,9 +2647,9 @@ GameObject:
   - component: {fileID: 336709467}
   - component: {fileID: 336709466}
   - component: {fileID: 336709469}
-  - component: {fileID: 336709470}
-  - component: {fileID: 336709471}
   - component: {fileID: 336709472}
+  - component: {fileID: 336709471}
+  - component: {fileID: 336709470}
   m_Layer: 0
   m_Name: PatrollingEnemy Blue
   m_TagString: Untagged
@@ -2725,7 +2725,7 @@ SpriteRenderer:
   m_SortingOrder: 2
   m_Sprite: {fileID: -735576350177731653, guid: 649bbf50c466c4d4da830136811225c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.02, y: 0.48}
@@ -2742,12 +2742,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336709465}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 99.56, y: 6.39, z: 15.46}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.44076538, y: -0.3412714, z: 15.384267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1534865573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &336709469
 MonoBehaviour:
@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d6ab3568d4b564eaf0cc99e82eb9c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
   jumpForce: 1
   groundLayer:
     serializedVersion: 2
@@ -2770,10 +2770,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   healthPoints: 1
-  _activationRadius: 0
-  _disableTime: 0
-  _startPoint: {fileID: 0}
-  _endPoint: {fileID: 0}
+  _activationRadius: 1
+  _startPoint: {fileID: 1443595867}
+  _endPoint: {fileID: 721516439}
+  _disableTime: 1
 --- !u!114 &336709470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2816,7 +2816,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -2832,7 +2832,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336709465}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -5803,14 +5803,13 @@ GameObject:
   - component: {fileID: 689331130}
   - component: {fileID: 689331129}
   - component: {fileID: 689331128}
-  - component: {fileID: 689331133}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &689331128
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -5897,9 +5896,9 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 20
   _activationRadius: 0
-  _disableTime: 0
   _startPoint: {fileID: 0}
   _endPoint: {fileID: 0}
+  _disableTime: 0
 --- !u!212 &689331131
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5964,24 +5963,12 @@ Transform:
   m_GameObject: {fileID: 689331127}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.14, y: -1.52, z: 0}
+  m_LocalPosition: {x: 94.84, y: 6.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &689331133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 689331127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d5acb28bf024affa0fec736d11802fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &696128048
 GameObject:
   m_ObjectHideFlags: 0
@@ -12136,6 +12123,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 412657662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1534865572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1534865573}
+  m_Layer: 0
+  m_Name: PatrollingEnemy Blue Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1534865573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534865572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 137.67923, y: 11.241271, z: 0.07573285}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 336709468}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1559279373
 GameObject:
   m_ObjectHideFlags: 0
@@ -15707,8 +15726,8 @@ SceneRoots:
   - {fileID: 179054453}
   - {fileID: 790438665}
   - {fileID: 1696171526}
-  - {fileID: 336709468}
   - {fileID: 1805757687}
   - {fileID: 1443595867}
   - {fileID: 721516439}
   - {fileID: 689331132}
+  - {fileID: 1534865573}

@@ -1,104 +1,96 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
+/// <summary>
+/// Патрулирующий враг: двигается между двумя точками, останавливается при получении урона
+/// </summary>
 public class PatrollingEnemy : Enemy
 {
-    private Rigidbody2D _bodyPatrolling;
-    private State _currentState;
-    [SerializeField] private float _disableTime;
-    [SerializeField] private Transform _startPoint;
+    [Header("Патрулирование")] [SerializeField]
+    private Transform _startPoint;
+
     [SerializeField] private Transform _endPoint;
+    [SerializeField] private float _disableTime = 2f;
 
     private EnemyAnimation _enemyAnimation;
-    private bool _isActive = true;
     private float _disableTimer;
     private float _direction = 1;
-    
-    private void Start()
-    {
-        _isActive = true;
-        _direction = 1;
-    }
+    private bool _isActive = true;
 
+    private float Treshold = 3.0f;
 
     protected override void Awake()
     {
         base.Awake();
         _enemyAnimation = GetComponent<EnemyAnimation>();
-        _bodyPatrolling = GetComponent<Rigidbody2D>();
+
+        if (_startPoint == null || _endPoint == null)
+            Debug.LogError(" PatrollingEnemy: _startPoint или _endPoint не назначены в инспекторе!");
 
         if (_enemyAnimation == null)
-            Debug.LogError("PatrollingEnemy: NULL REFERENCE");
+            Debug.LogError(" EnemyAnimation не найден на " + gameObject.name);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        /*if (!_isActive)
+        if (_isActive)
+        {
+            MoveAI();
+        }
+        else
         {
             _disableTimer += Time.deltaTime;
+
             if (_enemyAnimation.GetRunning())
-            {
                 _enemyAnimation.PlayHide();
-            }
+
+            if (_disableTimer >= _disableTime)
+                Reactivate();
         }
 
-        if (_disableTimer >= _disableTime)
-        {
-            if (!_enemyAnimation.GetRunning())
-            {
-                _enemyAnimation.PlayPopOut();
-            }
-
-            _disableTimer = 0;
-            _isActive = true;
-        }*/
-
-        // if (_isActive)
-        {
-            print($"PatrollingEnemy tryna moving!!! DIRECTION: {_direction}");
-            MoveAI();
-            Debug.Log("Velocity: " + _bodyPatrolling.linearVelocity);
-
-        }
-
-        // _enemyAnimation.SetRunning(_isActive);
+        _enemyAnimation.SetRunning(_isActive);
     }
 
-
+    /// <summary>
+    /// AI-логика патрулирования
+    /// </summary>
     private void MoveAI()
     {
-        /*Move(_direction);*/
-        /*print("MOVEAI: MOVE REQUESTED");*/
+        Move(_direction); // метод из Entity
 
-        /*_direction = (_direction == 1 && transform.position.x >= _endPoint.position.x) ? -1 : 0f;
-        _direction = (_direction == -1 && transform.position.x <= _startPoint.position.x) ? 1 : 0f;*/
-
-        /*if (_direction == 1 && transform.position.x >= _endPoint.position.x)
-        {
+        if (_direction == 1 && transform.position.x + Treshold >= _endPoint.position.x)
             _direction = -1;
-        }
-        else if (_direction == -1 && transform.position.x <= _startPoint.position.x)
-        {
+        else if (_direction == -1 && transform.position.x - Treshold <= _startPoint.position.x)
             _direction = 1;
-        }*/
-        print("--------------HERE------------");
-        _bodyPatrolling.linearVelocity = new Vector2(_direction * speed, _bodyPatrolling.linearVelocity.y);
     }
 
+    /// <summary>
+    /// Получение урона от пули
+    /// </summary>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("PlayerBullet"))
         {
             _isActive = false;
+            _disableTimer = 0f;
         }
+    }
+
+    /// <summary>
+    /// Возвращает врага к активности
+    /// </summary>
+    private void Reactivate()
+    {
+        _isActive = true;
+        _enemyAnimation.PlayPopOut();
+        _disableTimer = 0f;
     }
 
     public override void Activate()
     {
         gameObject.SetActive(true);
+        _isActive = true;
+        _direction = 1;
+        _disableTimer = 0f;
     }
 
     public override void Deactivate()
