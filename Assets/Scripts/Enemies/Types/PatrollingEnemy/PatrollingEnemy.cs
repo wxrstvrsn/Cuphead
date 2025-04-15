@@ -16,18 +16,13 @@ public class PatrollingEnemy : Enemy
     private float _direction = 1;
     private bool _isActive = true;
 
-    private float Treshold = 3.0f;
-
     protected override void Awake()
     {
         base.Awake();
         _enemyAnimation = GetComponent<EnemyAnimation>();
 
-        if (_startPoint == null || _endPoint == null)
-            Debug.LogError(" PatrollingEnemy: _startPoint или _endPoint не назначены в инспекторе!");
-
         if (_enemyAnimation == null)
-            Debug.LogError(" EnemyAnimation не найден на " + gameObject.name);
+            Debug.LogError("EnemyAnimation не найден на " + gameObject.name);
     }
 
     private void Update()
@@ -57,9 +52,9 @@ public class PatrollingEnemy : Enemy
     {
         Move(_direction); // метод из Entity
 
-        if (_direction == 1 && transform.position.x + Treshold >= _endPoint.position.x)
+        if (_direction == 1 && transform.position.x + 2.0f >= _endPoint.position.x)
             _direction = -1;
-        else if (_direction == -1 && transform.position.x - Treshold <= _startPoint.position.x)
+        else if (_direction == -1 && transform.position.x - 2.0f <= _startPoint.position.x)
             _direction = 1;
     }
 
