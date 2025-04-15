@@ -9,7 +9,12 @@ public abstract class Enemy : Entity
     /// Расстояние до игрока для триггеринга активации противника
     /// </summary>
     [SerializeField] public float _activationRadius;
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     /// <summary>
     /// Геттер (испол-ся в PollManager) расстояния для активации противника 
     /// </summary>
