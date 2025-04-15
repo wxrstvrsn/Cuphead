@@ -47,7 +47,7 @@ public class RunnerEnemyPool : MonoBehaviour
                 но над написать */
             bool allowedToSpawn = (!_runners[i].gameObject.activeInHierarchy &&
                                    Vector2.Distance(_target.position, _runners[i].transform.position) <
-                                   _runners[i].GetActivationRadius() && _timers[i] >= _spawnCooldown);
+                                   _runners[i].GetActivationRadius() && _timers[i] >= _runners[i].GetSpawnCooldown());
             if (allowedToSpawn)
             {
                 _runners[i].Activate();

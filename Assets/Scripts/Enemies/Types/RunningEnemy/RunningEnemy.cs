@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// Бегущий противник: активируется, когда игрок в радиусе,
@@ -12,6 +13,10 @@ public class RunningEnemy : Enemy
     // [SerializeField] private float _activationRadius = 5f;
     [SerializeField] private float _destroyDistance = 15f;
     [SerializeField] private float _jumpDistance = 1.2f;
+    [SerializeField] private float _spawnCooldown;
+    [SerializeField] private float _cliffDetectionOffset;
+
+    public float GetSpawnCooldown() => _spawnCooldown;
 
     private EnemyAnimation _enemyAnimation;
 
@@ -26,6 +31,7 @@ public class RunningEnemy : Enemy
         base.Awake();
         _enemyAnimation = GetComponent<EnemyAnimation>();
         _spawnPoint = transform.position;
+
 
         if (_player == null)
             Debug.LogWarning("RunningEnemy: ссылка на игрока не установлена!");
@@ -58,7 +64,7 @@ public class RunningEnemy : Enemy
     {
         bool grounded = IsGrounded() || IsGroundedOnWall();
 
-        if (grounded && IsObstacleAhead())
+        if ((IsObstacleAhead() || IsCliffAhead())  && (IsGrounded() || IsGroundedOnWall()))
         {
             print("RUNNER TRYNA JUMP");
             Jump();
@@ -100,18 +106,12 @@ public class RunningEnemy : Enemy
         |🟡прямоугольник|Размер BoxCast — насколько большой хитбокс врага|
         |---------------|------------------------------------------------|
         */
-        
-        
-        
-        
 
 
         // Также отрисуем размер box'a (прямоугольник)
-        
-
         Vector3 center3D = new Vector3(center.x, center.y, 0f);
         Vector3 halfSize = new Vector3(size.x, size.y, 0f) * 0.5f;
-        
+
         Debug.DrawLine(center3D - halfSize, center3D + halfSize, Color.yellow);
 
         if (hit.collider != null)
@@ -119,6 +119,21 @@ public class RunningEnemy : Enemy
 
         return hit.collider != null;
     }
+
+
+    private bool IsCliffAhead()
+    {
+        Vector2 origin = _body.position + Vector2.right * _direction * _cliffDetectionOffset; // немного впереди врага
+        float rayLength = 6.0f;
+
+        RaycastHit2D hitGround = Physics2D.Raycast(origin, Vector2.down, rayLength, groundLayer);
+        RaycastHit2D hitWall = Physics2D.Raycast(origin, Vector2.down, rayLength, wallLayer);
+
+        Debug.DrawRay(origin, Vector2.down * rayLength, hitGround.collider ? Color.green : Color.magenta);
+
+        return (hitGround.collider == null) && (hitWall.collider == null); // если не нашли землю — это обрыв
+    }
+
 
     /// <summary>
     /// Активация по событию ObjectPool или вручную
