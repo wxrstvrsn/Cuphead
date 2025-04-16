@@ -20,8 +20,6 @@ public class RunnerEnemyPool : MonoBehaviour
     /// </summary>
     private float[] _timers;
 
-    private float _spawnCooldown = 10.0f;
-
     private void Awake()
     {
         _timers = new float[_runners.Length];
@@ -33,7 +31,7 @@ public class RunnerEnemyPool : MonoBehaviour
         }
     }
 
-    /*FIXED: 
+    /*FIXED:
         Реализовать нормальную активацию объектов pool'a*/
 
     private void Update()

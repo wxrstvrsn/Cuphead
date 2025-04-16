@@ -24,7 +24,6 @@ public class RunningEnemy : Enemy
 
     private bool _isActive = false;
     private float _direction = -1f;
-    private float _cooldownTimer;
 
     protected override void Awake()
     {
@@ -143,7 +142,6 @@ public class RunningEnemy : Enemy
         transform.position = _spawnPoint;
         _isActive = true;
         _direction = Mathf.Sign(_player.position.x - transform.position.x);
-        _cooldownTimer = 0f;
         gameObject.SetActive(true);
     }
 
