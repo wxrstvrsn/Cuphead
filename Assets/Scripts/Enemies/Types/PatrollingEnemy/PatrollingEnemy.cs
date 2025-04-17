@@ -19,7 +19,7 @@ public class PatrollingEnemy : Enemy
     private bool _isActive;
     private bool _canDealDamage;
     private CapsuleCollider2D _col;
-    
+
 
     protected override void Awake()
     {
@@ -88,14 +88,6 @@ public class PatrollingEnemy : Enemy
             _disableTimer = 0f;
         }
     }
-    
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
-        {
-            damageable.GetDamage();
-        }
-    }
 
     /// <summary>
     /// Возвращает врага к активности
@@ -124,5 +116,13 @@ public class PatrollingEnemy : Enemy
     public override void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+
+    protected override void OnCollisionEnter2D(Collision2D other)
+    {
+        base.OnCollisionEnter2D(other); // ← вызывает поведение из Enemy (нанесение урона)
+
+        // Дополнительная логика патрулянта:
+        Debug.Log("PatrolEnemy столкнулся с патрулянтом");
     }
 }

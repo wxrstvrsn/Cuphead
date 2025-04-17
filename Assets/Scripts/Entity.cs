@@ -116,4 +116,13 @@ public class Entity : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    
+    protected virtual void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+        }
+    }
+
 }

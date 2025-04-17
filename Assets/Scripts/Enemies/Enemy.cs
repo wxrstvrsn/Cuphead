@@ -20,7 +20,15 @@ public abstract class Enemy : Entity
     /// </summary>
     /// <returns></returns>
     public float GetActivationRadius() => _activationRadius;
-    
+
     public abstract void Activate();
     public abstract void Deactivate();
+
+    protected virtual void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+        }
+    }
 }
