@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 /// <summary>
 /// Скрипт обработки перемещений персонажа игрока
 /// </summary>
-public class Player : Entity
+public class Player : Entity, IDamageable
 /* TODO:
     Добавить в Scene объекты -- deadZone в тех местах на мапе,
     где персонаж может провалиться -- и если OnTriggerEnter2D
@@ -51,10 +51,22 @@ public class Player : Entity
 
     /*public float GetVelocityX => */
 
+    [SerializeField] private int _healthPoints;
+
+    /// <summary>
+    /// Класс-геттер положения игрока
+    /// </summary>
+    // TODO: а бля, точно, создать ж нельзя объект статического класса
+    // за ссылку на метод стат класса выступает уже тупа общее имя а не имя переменной в которой лежит созданный экземпляр (пушто его нет бля)
+
     protected override void Awake()
     {
         base.Awake();
         _playerAnim = GetComponent<PlayerAnimation>();
+        
+        // TODO: перечитать ч это 
+        PlayerShare.Instance = this;
+        
     }
 
     private void Update()
@@ -145,6 +157,21 @@ public class Player : Entity
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
             _playerAnim.PlayHit();
         }
+    }
+
+    public void GetDamage()
+    {
+        _healthPoints--;
+        
+        _playerAnim.PlayHit();
+        
+        /*TODO:
+            дергаем тут SetInvincibility()
+            который еще не написал
+            ну типа чтобы после
+            получения урона какое-то время игрок
+            был неуязвим
+            чтоб было время отпрыгнуть типа или ч т такое */          
     }
 }
 
