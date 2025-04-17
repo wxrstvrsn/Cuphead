@@ -9,6 +9,16 @@ public abstract class Enemy : Entity
     /// Расстояние до игрока для триггеринга активации противника
     /// </summary>
     [SerializeField] public float _activationRadius;
+    
+    [SerializeField] private float damageCooldown = 1f;
+    private float _damageCooldownTimer;
+
+    protected /*override -- туда же -- апдейта нет*/ void Update()
+    {
+        // base.Update(); -- а у меня бля нет апдейта в базовом Entity...
+        _damageCooldownTimer += Time.deltaTime;
+    }
+
 
     protected override void Awake()
     {
@@ -29,6 +39,7 @@ public abstract class Enemy : Entity
         if (other.collider.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.GetDamage();
+            _damageCooldownTimer = 0f;
         }
     }
 }

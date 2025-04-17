@@ -120,6 +120,7 @@ public class PatrollingEnemy : Enemy
 
     protected override void OnCollisionEnter2D(Collision2D other)
     {
+        // Может добавить сюда проверку if(_damageCooldowntimer > damageCooldown) 
         base.OnCollisionEnter2D(other); // ← вызывает поведение из Enemy (нанесение урона)
 
         // Дополнительная логика патрулянта:
