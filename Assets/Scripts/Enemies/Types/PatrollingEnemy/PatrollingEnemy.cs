@@ -88,6 +88,14 @@ public class PatrollingEnemy : Enemy
             _disableTimer = 0f;
         }
     }
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+        }
+    }
 
     /// <summary>
     /// Возвращает врага к активности
