@@ -150,6 +150,8 @@ public class PatrollingEnemy : Enemy
             damageable.GetDamage();
             _damageCooldownTimer = 0f;
         }*/
+        
+        // HARDCODED SHIT (key_01) WORKING
         Debug.Log("Checking if Player is damageable");
 
         var player = other.collider.GetComponent<Player>();
