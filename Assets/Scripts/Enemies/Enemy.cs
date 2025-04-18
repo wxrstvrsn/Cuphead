@@ -10,8 +10,8 @@ public abstract class Enemy : Entity
     /// </summary>
     [SerializeField] public float _activationRadius;
     
-    [SerializeField] private float damageCooldown = 1f;
-    private float _damageCooldownTimer;
+    [SerializeField] protected float _damageCooldown = 1f;
+    protected float _damageCooldownTimer;
 
     protected /*override -- туда же -- апдейта нет*/ void Update()
     {
@@ -36,6 +36,9 @@ public abstract class Enemy : Entity
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
+        if(_damageCooldownTimer < _damageCooldown)
+            return;
+        
         if (other.collider.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.GetDamage();
