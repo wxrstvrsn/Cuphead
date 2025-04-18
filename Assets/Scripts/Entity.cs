@@ -98,20 +98,7 @@ public class Entity : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         }
     }
-
-    protected void GetDamage()
-    {
-        healthPoints = Math.Max(healthPoints - 1, 0);
-
-        if (healthPoints <= 0)
-        {
-            Die();
-        }
-        else
-        {
-        }
-    }
-
+    
     private void Die()
     {
         gameObject.SetActive(false);
