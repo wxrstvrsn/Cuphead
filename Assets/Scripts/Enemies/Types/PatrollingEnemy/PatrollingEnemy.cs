@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 /// <summary>
@@ -151,7 +152,7 @@ public class PatrollingEnemy : Enemy
             _damageCooldownTimer = 0f;
         }*/
         
-        // HARDCODED SHIT (key_01) WORKING
+        /*// HARDCODED SHIT (key_01) WORKING
         Debug.Log("Checking if Player is damageable");
 
         var player = other.collider.GetComponent<Player>();
@@ -159,7 +160,21 @@ public class PatrollingEnemy : Enemy
         {
             Debug.Log("YES! It's player. Now calling GetDamage()");
             player.GetDamage(); // напрямую
+        }*/
+
+        var mono = other.collider.GetComponent<MonoBehaviour>();
+
+        if (mono is IDamageable damageable)
+        {
+            print("----------------------IM HERE---------------");
+            damageable.GetDamage();
         }
+        
+        /*var player = other.collider.GetComponent<Player>();
+        if (player is IDamageable damageable)
+        {
+            damageable.GetDamage();
+        }*/
     }
 
 }
