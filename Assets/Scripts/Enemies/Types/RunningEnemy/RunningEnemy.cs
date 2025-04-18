@@ -2,11 +2,15 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+// TODO: бесконечный реквест анимации смерти при попадании пули -- пофиксить
+//  если несколько пулек попадает в противника - то столько, сколько раз поймали маслину
+//  столько и будет раз заново анимка отыгрывать при непрерывной стрельбе
+
 /// <summary>
 /// Бегущий противник: активируется, когда игрок в радиусе,
 /// бежит в его сторону, прыгает через препятствия и деактивируется при удалении.
 /// </summary>
-public class RunningEnemy : Enemy
+public class RunningEnemy : Enemy, IDamageable
 {
     [Header("AI Parameters")] [SerializeField]
     private Transform _player;
@@ -62,6 +66,8 @@ public class RunningEnemy : Enemy
     /// </summary>
     private void HandleAI()
     {
+        /*if(!_isActive) return;*/
+        
         bool grounded = IsGrounded() || IsGroundedOnWall();
 
         if ((IsObstacleAhead() || IsCliffAhead()) && (IsGrounded() || IsGroundedOnWall()))
@@ -144,6 +150,8 @@ public class RunningEnemy : Enemy
         _isActive = true;
         _direction = Mathf.Sign(_player.position.x - transform.position.x);
         gameObject.SetActive(true);
+        // TODO костыль с фризом переделать
+        _body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     /// <summary>
@@ -171,5 +179,16 @@ public class RunningEnemy : Enemy
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
+        // 
+    }
+
+    public void GetDamage()
+    {
+        _isActive = false;
+        // TODO костыль с фризом переделать
+        _body.constraints = RigidbodyConstraints2D.FreezeAll;
+        print("RUNNING ENEMY MASLINY POJMAL");
+        _enemyAnimation.PlayDeath();
+        // _anim.SetTrigger("death"); + event в Animation на Deactivate();
     }
 }
