@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Патрулирующий враг: двигается между двумя точками, останавливается при получении урона
 /// </summary>
-public class PatrollingEnemy : Enemy
+public class PatrollingEnemy : Enemy, IDamageable
 {
     [Header("Границы патрулируемой зоны")] [SerializeField]
     private Transform _startPoint;
@@ -123,5 +123,9 @@ public class PatrollingEnemy : Enemy
     public override void Deactivate()
     {
         gameObject.SetActive(false);
+    }
+    public void GetDamage()
+    {
+        print("-----------PATROLLING ENEMY MASLINU POJMAL----------");
     }
 }

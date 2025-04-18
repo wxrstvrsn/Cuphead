@@ -37,7 +37,8 @@ public class Bullet : MonoBehaviour
 
         _lifeTime += Time.deltaTime;
         if (_lifeTime > bulletLifeTime)
-            gameObject.SetActive(false);
+            Deactivate();
+        // !!! деактивируем по времени жизни пульки -->> если 
     }
 
     private void Move()
@@ -58,9 +59,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+        }
         _hit = true;
         _boxCollider.enabled = false;
         _anim.SetTrigger("explode");
+        //TODO: вместо двух строк последних -- просто SetTrigger("explode") + add event в Animation
+        // по завершении анимации "explode" Дергаем Deactivate(); 
     }
 
     public void SetDirection(float _direction)

@@ -58,9 +58,15 @@ public class Entity : MonoBehaviour
         return raycastHitGround;
     }
 
+    
+    //TODO: fix rayCast length 
+    //  если игроком бежим по диагонали вверх и прыгаем, 
+    //  то бывает анимация прыжка сбивается из-за того, ч цепляем справа выше землю коллизией 
+    // либо как т через Animation / Animator 
+    // запретить сменять анимацию прыжка на следующую, пока эта не отыграла
     protected bool IsGroundedOnWall()
     {
-        // аналогично IsGrounde(), но чекаем коллизию со стеной
+        // аналогично IsGrounded(), но чекаем коллизию со стеной
         // + семейство лучей пуляем чуть с другой позиции
         Vector2 center = _capsuleCollider.bounds.center;
         
