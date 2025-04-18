@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 
 /// <summary>
@@ -86,6 +88,18 @@ public class PatrollingEnemy : Enemy
             _isActive = false;
             _canDealDamage = false;
             _disableTimer = 0f;
+        }
+        // костыль с stackOverFlow
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // костыль со StackOverflow
+        var mono = other.collider.GetComponent<MonoBehaviour>();
+        if (mono is IDamageable damageable)
+        {
+            damageable.GetDamage();
         }
     }
 

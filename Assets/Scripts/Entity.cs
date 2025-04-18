@@ -99,19 +99,6 @@ public class Entity : MonoBehaviour
         }
     }
 
-    protected void GetDamage()
-    {
-        healthPoints = Math.Max(healthPoints - 1, 0);
-
-        if (healthPoints <= 0)
-        {
-            Die();
-        }
-        else
-        {
-        }
-    }
-
     private void Die()
     {
         gameObject.SetActive(false);

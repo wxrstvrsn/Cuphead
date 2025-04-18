@@ -1,11 +1,13 @@
 using System;
+
 using UnityEngine;
 using UnityEngine.Serialization;
+
 
 /// <summary>
 /// Скрипт обработки перемещений персонажа игрока
 /// </summary>
-public class Player : Entity
+public class Player : Entity, IDamageable
 /* TODO:
     Добавить в Scene объекты -- deadZone в тех местах на мапе,
     где персонаж может провалиться -- и если OnTriggerEnter2D
@@ -145,6 +147,12 @@ public class Player : Entity
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
             _playerAnim.PlayHit();
         }
+    }
+
+    public void GetDamage()
+    {
+        print("-----------------------IM HEEEEERRRRREEEE------------------------------------");
+        _playerAnim.PlayHit();
     }
 }
 
