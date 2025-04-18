@@ -23,4 +23,15 @@ public abstract class Enemy : Entity
     
     public abstract void Activate();
     public abstract void Deactivate();
+    
+    protected virtual void OnCollisionEnter2D(Collision2D other)
+    {
+        // костыль со StackOverflow
+        var mono = other.collider.GetComponent<MonoBehaviour>();
+        if (mono is IDamageable damageable)
+        {
+            damageable.GetDamage();
+            print("Enemy Hitted player");
+        }
+    }
 }

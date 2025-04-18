@@ -152,6 +152,7 @@ public class Player : Entity, IDamageable
     public void GetDamage()
     {
         print("-----------------------IM HEEEEERRRRREEEE------------------------------------");
+        Jump();
         _playerAnim.PlayHit();
     }
 }

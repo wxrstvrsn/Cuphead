@@ -1,5 +1,4 @@
 using System;
-
 using UnityEngine;
 
 /// <summary>
@@ -21,7 +20,7 @@ public class PatrollingEnemy : Enemy
     private bool _isActive;
     private bool _canDealDamage;
     private CapsuleCollider2D _col;
-    
+
 
     protected override void Awake()
     {
@@ -90,17 +89,11 @@ public class PatrollingEnemy : Enemy
             _disableTimer = 0f;
         }
         // костыль с stackOverFlow
-        
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        // костыль со StackOverflow
-        var mono = other.collider.GetComponent<MonoBehaviour>();
-        if (mono is IDamageable damageable)
-        {
-            damageable.GetDamage();
-        }
+        base.OnCollisionEnter2D(collision);
     }
 
     /// <summary>

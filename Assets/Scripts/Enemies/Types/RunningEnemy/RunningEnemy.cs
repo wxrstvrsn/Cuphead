@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -63,7 +64,7 @@ public class RunningEnemy : Enemy
     {
         bool grounded = IsGrounded() || IsGroundedOnWall();
 
-        if ((IsObstacleAhead() || IsCliffAhead())  && (IsGrounded() || IsGroundedOnWall()))
+        if ((IsObstacleAhead() || IsCliffAhead()) && (IsGrounded() || IsGroundedOnWall()))
         {
             print("RUNNER TRYNA JUMP");
             Jump();
@@ -167,14 +168,8 @@ public class RunningEnemy : Enemy
         gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!_isActive) return;
-
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("💥 Игрок получил урон от RunningEnemy");
-            // TODO: Вызов GetDamage() у игрока
-        }
+        base.OnCollisionEnter2D(collision);
     }
 }
