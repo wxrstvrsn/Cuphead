@@ -180,6 +180,7 @@ public class Player : Entity, IDamageable
         /////
         Jump();
         Debug.Log("Player damaged");
+        print("----------------------------------");
         ////
         
         

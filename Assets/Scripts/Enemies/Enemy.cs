@@ -34,16 +34,5 @@ public abstract class Enemy : Entity
     public abstract void Activate();
     public abstract void Deactivate();
 
-    protected virtual void OnCollisionEnter2D(Collision2D other)
-    {
-        Debug.Log($"[Enemy] Collision with: {other.gameObject.name}");
-        if (_damageCooldownTimer < _damageCooldown)
-            return;
-
-        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
-        {
-            damageable.GetDamage();
-            _damageCooldownTimer = 0f;
-        }
-    }
+    
 }

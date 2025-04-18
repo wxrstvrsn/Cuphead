@@ -118,12 +118,25 @@ public class PatrollingEnemy : Enemy
         gameObject.SetActive(false);
     }
 
-    protected override void OnCollisionEnter2D(Collision2D other)
+    /*protected override void OnCollisionEnter2D(Collision2D other)
     {
         // Может добавить сюда проверку if(_damageCooldowntimer > damageCooldown) 
         base.OnCollisionEnter2D(other); // ← вызывает поведение из Enemy (нанесение урона)
 
         // Дополнительная логика патрулянта:
         
+    }*/
+    
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log($"[Enemy] Collision with: {other.gameObject.name}");
+        if (_damageCooldownTimer < _damageCooldown)
+            return;
+
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+            _damageCooldownTimer = 0f;
+        }
     }
 }
