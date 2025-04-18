@@ -175,7 +175,9 @@ public class Player : Entity, IDamageable
         _healthPoints--;
         
         _playerAnim.PlayHit();
-        
+
+        Debug.Log("Player damaged");
+
         /*TODO:
             дергаем тут SetInvincibility()
             который еще не написал
@@ -183,7 +185,7 @@ public class Player : Entity, IDamageable
             получения урона какое-то время игрок
             был неуязвим
             чтоб было время отпрыгнуть типа или ч т такое
-            SetInvincibility(); */          
+            SetInvincibility(); */
     }
 }
 

@@ -2973,6 +2973,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -3577,6 +3578,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 1
   _activationRadius: 1
+  _damageCooldown: 1
   _startPoint: {fileID: 1443595867}
   _endPoint: {fileID: 721516439}
   _disableTime: 5
@@ -4088,6 +4090,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -5343,6 +5346,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -6023,6 +6027,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -6350,7 +6355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &594239496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7204,6 +7209,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 20
   _activationRadius: 0
+  _damageCooldown: 1
   _startPoint: {fileID: 0}
   _endPoint: {fileID: 0}
   _disableTime: 0
@@ -8538,6 +8544,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -11994,6 +12001,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -12213,6 +12221,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -12461,6 +12470,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -12885,6 +12895,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -15448,6 +15459,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 1
   _activationRadius: 1
+  _damageCooldown: 1
   _startPoint: {fileID: 686993617}
   _endPoint: {fileID: 546785765}
   _disableTime: 5
@@ -16207,6 +16219,7 @@ MonoBehaviour:
     m_Bits: 64
   healthPoints: 0
   _activationRadius: 40
+  _damageCooldown: 1
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
@@ -16658,12 +16671,13 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  healthPoints: 0
+  healthPoints: 100
   deadZoneLayer:
     serializedVersion: 2
     m_Bits: 128
   dashForce: 20
   _dashDuration: 0.4
+  _healthPoints: 0
 --- !u!50 &1823113350
 Rigidbody2D:
   serializedVersion: 5

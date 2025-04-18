@@ -124,6 +124,6 @@ public class PatrollingEnemy : Enemy
         base.OnCollisionEnter2D(other); // ← вызывает поведение из Enemy (нанесение урона)
 
         // Дополнительная логика патрулянта:
-        Debug.Log("PatrolEnemy столкнулся с патрулянтом");
+        Debug.Log("PatrolEnemy СТОЛКНУЛСЯ С КЕМ-ТО (ВОЗМОЖНО ИГРОК)");
     }
 }
