@@ -127,7 +127,7 @@ public class PatrollingEnemy : Enemy
         
     }*/
     
-    public void OnCollisionEnter2D(Collision2D other)
+    /*public void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log($"[Enemy] Collision with: {other.gameObject.name}");
         if (_damageCooldownTimer < _damageCooldown)
@@ -138,5 +138,26 @@ public class PatrollingEnemy : Enemy
             damageable.GetDamage();
             _damageCooldownTimer = 0f;
         }
+    }*/
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        /*Debug.Log($"[Enemy] Collision with: {other.collider.name}");
+
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            Debug.Log("[Enemy] Found IDamageable! Calling GetDamage()");
+            damageable.GetDamage();
+            _damageCooldownTimer = 0f;
+        }*/
+        Debug.Log("Checking if Player is damageable");
+
+        var player = other.collider.GetComponent<Player>();
+        if (player != null)
+        {
+            Debug.Log("YES! It's player. Now calling GetDamage()");
+            player.GetDamage(); // напрямую
+        }
     }
+
 }
