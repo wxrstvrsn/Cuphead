@@ -1,4 +1,3 @@
-using System;
 
 using UnityEngine;
 
@@ -21,7 +20,7 @@ public class PatrollingEnemy : Enemy
     private bool _isActive;
     private bool _canDealDamage;
     private CapsuleCollider2D _col;
-    
+
 
     protected override void Awake()
     {
@@ -131,4 +130,63 @@ public class PatrollingEnemy : Enemy
     {
         gameObject.SetActive(false);
     }
+
+    /*protected override void OnCollisionEnter2D(Collision2D other)
+    {
+        // Может добавить сюда проверку if(_damageCooldowntimer > damageCooldown) 
+        base.OnCollisionEnter2D(other); // ← вызывает поведение из Enemy (нанесение урона)
+
+        // Дополнительная логика патрулянта:
+        
+    }*/
+    
+    /*public void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log($"[Enemy] Collision with: {other.gameObject.name}");
+        if (_damageCooldownTimer < _damageCooldown)
+            return;
+
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+            _damageCooldownTimer = 0f;
+        }
+    }*/
+    
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        /*Debug.Log($"[Enemy] Collision with: {other.collider.name}");
+
+        if (other.collider.TryGetComponent<IDamageable>(out var damageable))
+        {
+            Debug.Log("[Enemy] Found IDamageable! Calling GetDamage()");
+            damageable.GetDamage();
+            _damageCooldownTimer = 0f;
+        }*/
+        
+        /*// HARDCODED SHIT (key_01) WORKING
+        Debug.Log("Checking if Player is damageable");
+
+        var player = other.collider.GetComponent<Player>();
+        if (player != null)
+        {
+            Debug.Log("YES! It's player. Now calling GetDamage()");
+            player.GetDamage(); // напрямую
+        }*/
+
+        var mono = other.collider.GetComponent<MonoBehaviour>();
+
+        if (mono is IDamageable damageable)
+        {
+            print("----------------------IM HERE---------------");
+            damageable.GetDamage();
+        }
+        
+        /*var player = other.collider.GetComponent<Player>();
+        if (player is IDamageable damageable)
+        {
+            damageable.GetDamage();
+        }*/
+    }
+
 }

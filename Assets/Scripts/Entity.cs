@@ -103,4 +103,7 @@ public class Entity : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    
+   
+
 }
