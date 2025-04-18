@@ -175,9 +175,14 @@ public class Player : Entity, IDamageable
         _healthPoints--;
         
         _playerAnim.PlayHit();
-
+        
+        
+        /////
+        Jump();
         Debug.Log("Player damaged");
-
+        ////
+        
+        
         /*TODO:
             дергаем тут SetInvincibility()
             который еще не написал
