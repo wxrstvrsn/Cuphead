@@ -9,7 +9,7 @@ public abstract class Enemy : Entity
     /// Расстояние до игрока для триггеринга активации противника
     /// </summary>
     [SerializeField] public float _activationRadius;
-    
+
     [SerializeField] protected float _damageCooldown = 1f;
     protected float _damageCooldownTimer;
 
@@ -36,9 +36,10 @@ public abstract class Enemy : Entity
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
-        if(_damageCooldownTimer < _damageCooldown)
+        Debug.Log($"[Enemy] Collision with: {other.gameObject.name}");
+        if (_damageCooldownTimer < _damageCooldown)
             return;
-        
+
         if (other.collider.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.GetDamage();
