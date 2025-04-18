@@ -72,7 +72,7 @@ public class Bullet : MonoBehaviour
 
     public void SetDirection(float _direction)
     {
-        Debug.Log("SET DIRECTION");
+        /*Debug.Log("SET DIRECTION");*/
         _lifeTime = 0;
         this._direction = _direction;
         gameObject.SetActive(true);

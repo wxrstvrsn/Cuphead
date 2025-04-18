@@ -31,7 +31,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (_isShooting && _coolDownTimer > attackCooldown)
         {
-            Debug.Log("HANDLE SHOOTING");
+            /*Debug.Log("HANDLE SHOOTING");*/
             _coolDownTimer = 0;
 
             int index = FindActiveBullet();

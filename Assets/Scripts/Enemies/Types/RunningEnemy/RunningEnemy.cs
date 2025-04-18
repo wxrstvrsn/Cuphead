@@ -120,8 +120,8 @@ public class RunningEnemy : Enemy, IDamageable
 
         Debug.DrawLine(center3D - halfSize, center3D + halfSize, Color.yellow);
 
-        if (hit.collider != null)
-            Debug.Log($"[RunningEnemy] Обнаружено препятствие: {hit.collider.gameObject.name}");
+        /*if (hit.collider != null)
+            Debug.Log($"[RunningEnemy] Обнаружено препятствие: {hit.collider.gameObject.name}");*/
 
         return hit.collider != null;
     }
