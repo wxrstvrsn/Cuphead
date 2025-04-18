@@ -152,7 +152,9 @@ public class Player : Entity, IDamageable
     public void GetDamage()
     {
         print("-----------------------IM HEEEEERRRRREEEE------------------------------------");
+        _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
         _playerAnim.PlayHit();
+        // Jump();
     }
 }
 
