@@ -17,7 +17,7 @@ public class PatrollingEnemy : Enemy, IDamageable
     private EnemyAnimation _enemyAnimation;
     private float _disableTimer;
     private float _direction = 1;
-    private bool _isActive;
+    /*private bool _isActive;*/
     private bool _canDealDamage;
     private CapsuleCollider2D _col;
 
@@ -114,16 +114,18 @@ public class PatrollingEnemy : Enemy, IDamageable
 
     public override void Activate()
     {
-        gameObject.SetActive(true);
-        _isActive = true;
-        _direction = 1;
+        base.Activate();
+
         _disableTimer = 0f;
     }
 
     public override void Deactivate()
     {
+        base.Deactivate();
+        
         gameObject.SetActive(false);
     }
+
     public void GetDamage()
     {
         print("-----------PATROLLING ENEMY MASLINU POJMAL----------");

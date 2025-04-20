@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour
 
     public Rigidbody2D _body { get; private set; }
     private CapsuleCollider2D _capsuleCollider;
-    
+
     protected CapsuleCollider2D GetCapsuleCollider => _capsuleCollider;
 
     protected virtual void Awake()
@@ -33,6 +33,7 @@ public class Entity : MonoBehaviour
             // в противном случае шевелилку подрубаем
             _body.linearVelocity = new Vector2(direction * speed, _body.linearVelocity.y);
         }
+
         Flip(direction);
     }
 
@@ -49,17 +50,21 @@ public class Entity : MonoBehaviour
 
     protected bool IsGrounded()
     {
-        // имеем горизонтальный луч размером bounds.size,
-        // пускаем рэйкаст лучи из каждой вещественной точки
-        // луча (см выше) вниз на длину 0.1f в поисках земли (groundLayer)
-        RaycastHit2D raycastHitGround = Physics2D.BoxCast(_capsuleCollider.bounds.center, _capsuleCollider.bounds.size,
-            0f,
-            Vector2.down, 0.1f, groundLayer);
-        return raycastHitGround;
+        Vector2 capsuleCenter = _capsuleCollider.bounds.center;
+        float radius = _capsuleCollider.size.x * Mathf.Abs(transform.localScale.x);
+        float offsetY = (_capsuleCollider.bounds.size.y / 2f) - radius;
+        float castDistance = 0.05f;
+
+        Vector2 circleCastOrigin = capsuleCenter + Vector2.down * offsetY;
+
+        RaycastHit2D hit = Physics2D.CircleCast(circleCastOrigin, radius, Vector2.down, castDistance, groundLayer);
+
+        return hit.collider;
     }
 
-    
-    //TODO: fix rayCast length 
+
+    //FIXED: BoxCast -->> CircleCast
+    //  fix rayCast length 
     //  если игроком бежим по диагонали вверх и прыгаем, 
     //  то бывает анимация прыжка сбивается из-за того, ч цепляем справа выше землю коллизией 
     // либо как т через Animation / Animator 
@@ -68,14 +73,19 @@ public class Entity : MonoBehaviour
     {
         // аналогично IsGrounded(), но чекаем коллизию со стеной
         // + семейство лучей пуляем чуть с другой позиции
-        Vector2 center = _capsuleCollider.bounds.center;
-        
-        Vector2 size = new Vector2(_capsuleCollider.bounds.size.x * 0.8f, _capsuleCollider.bounds.size.y);
 
-        float distance = 0.1f;
+        {
+            Vector2 capsuleCenter = _capsuleCollider.bounds.center;
+            float radius = _capsuleCollider.size.x * Mathf.Abs(transform.localScale.x);
+            float offsetY = (_capsuleCollider.bounds.size.y / 2f) - radius;
+            float castDistance = 0.05f;
 
-        RaycastHit2D raycastHitWall = Physics2D.BoxCast(center, size, 0f, Vector2.down, distance, wallLayer);
-        return raycastHitWall.collider != null;
+            Vector2 circleCastOrigin = capsuleCenter + Vector2.down * offsetY;
+
+            RaycastHit2D hit = Physics2D.CircleCast(circleCastOrigin, radius, Vector2.down, castDistance, wallLayer);
+
+            return hit.collider;
+        }
     }
 
     protected bool IsTouchingWall()

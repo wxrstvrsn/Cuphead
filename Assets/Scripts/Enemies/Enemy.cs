@@ -8,7 +8,12 @@ public abstract class Enemy : Entity
     /// <summary>
     /// Расстояние до игрока для триггеринга активации противника
     /// </summary>
-    [SerializeField] public float _activationRadius;
+    [SerializeField] protected float _activationRadius;
+    
+    protected bool _isActive;
+    
+    
+    
 
     protected override void Awake()
     {
@@ -20,10 +25,19 @@ public abstract class Enemy : Entity
     /// </summary>
     /// <returns></returns>
     public float GetActivationRadius() => _activationRadius;
-    
-    public abstract void Activate();
-    public abstract void Deactivate();
-    
+
+    public virtual void Activate()
+    {
+        gameObject.SetActive(true);
+        _isActive = true;
+    }
+
+    public virtual void Deactivate()
+    {
+        gameObject.SetActive(false);
+        _isActive = false;
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
         // костыль со StackOverflow

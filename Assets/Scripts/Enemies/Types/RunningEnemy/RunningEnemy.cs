@@ -27,7 +27,7 @@ public class RunningEnemy : Enemy, IDamageable
 
     private Vector3 _spawnPoint;
 
-    private bool _isActive = false;
+    /*private bool _isActive = false;*/
     private float _direction = -1f;
 
     protected override void Awake()
@@ -67,7 +67,7 @@ public class RunningEnemy : Enemy, IDamageable
     private void HandleAI()
     {
         /*if(!_isActive) return;*/
-        
+
         bool grounded = IsGrounded() || IsGroundedOnWall();
 
         if ((IsObstacleAhead() || IsCliffAhead()) && (IsGrounded() || IsGroundedOnWall()))
@@ -147,9 +147,11 @@ public class RunningEnemy : Enemy, IDamageable
     public override void Activate()
     {
         transform.position = _spawnPoint;
-        _isActive = true;
+        base.Activate();
+
+        GetCapsuleCollider.enabled = true;
         _direction = Mathf.Sign(_player.position.x - transform.position.x);
-        gameObject.SetActive(true);
+
         // TODO костыль с фризом переделать
         _body.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -171,9 +173,9 @@ public class RunningEnemy : Enemy, IDamageable
     /// </summary>
     public override void Deactivate()
     {
-        _isActive = false;
+        base.Deactivate();
+
         transform.position = _spawnPoint;
-        gameObject.SetActive(false);
     }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
@@ -187,6 +189,8 @@ public class RunningEnemy : Enemy, IDamageable
         _isActive = false;
         // TODO костыль с фризом переделать
         _body.constraints = RigidbodyConstraints2D.FreezeAll;
+        GetCapsuleCollider.enabled = false;
+
         print("RUNNING ENEMY MASLINY POJMAL");
         _enemyAnimation.PlayDeath();
         // _anim.SetTrigger("death"); + event в Animation на Deactivate();

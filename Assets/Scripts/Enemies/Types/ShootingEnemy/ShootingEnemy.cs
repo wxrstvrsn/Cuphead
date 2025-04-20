@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class ShootingEnemy : Enemy
+public class ShootingEnemy : Enemy, IDamageable
 {
     [SerializeField] private GameObject[] bullets;
     [SerializeField] private Transform bulletHomePoint;
@@ -54,4 +55,17 @@ public class ShootingEnemy : Enemy
 
         return 0;
     }
+
+    public void GetDamage()
+    {
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // дергаем ручку GetDamage() у Player
+        base.OnCollisionEnter2D(collision);
+    }
+    
+    
 }
