@@ -25,6 +25,7 @@ public class PlayerAnimation : EntityAnimation
     /// </summary>
     public virtual void PlayHit()
     {
+        _anim.ResetTrigger("hit");
         _anim.SetTrigger("hit");
     }
 

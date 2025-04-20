@@ -1,16 +1,34 @@
-using UnityEngine;
+/*using UnityEngine;
 
-public class PauseMenuUI : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private GameObject pauseUI;
+    private bool isPaused = false;
+
+    private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void TogglePause()
     {
-        
+        isPaused = !isPaused;
+        pauseUI.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
     }
-}
+
+    public void GoToLevelSelect()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("LevelSelect");
+    }
+
+    public void QuitGame()
+    {
+        Time.timeScale = 1f;
+        Application.Quit();
+    }
+}*/
