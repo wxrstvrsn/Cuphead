@@ -23,4 +23,15 @@ public class EnemyAnimation : EntityAnimation
     {
         _anim.SetTrigger("intro");
     }
+
+    public void PlayLaserShoot()
+    {
+        // TODO
+        throw new System.NotImplementedException();
+    }
+
+    public void PlayLaunchCarrots()
+    {
+        throw new System.NotImplementedException();
+    }
 }
