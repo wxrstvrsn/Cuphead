@@ -12,7 +12,6 @@ public class PlayerShooting : MonoBehaviour
     private float _coolDownTimer = Mathf.Infinity;
 
     private bool _isShooting;
-
     private bool _lookUp;
 
     private void Awake()
@@ -24,12 +23,11 @@ public class PlayerShooting : MonoBehaviour
     private void Update()
     {
         _isShooting = Input.GetKey(KeyCode.X);
-
         _lookUp = Input.GetKey(KeyCode.UpArrow);
 
         UpdateAnimation();
-
         HandleShooting();
+
         _coolDownTimer += Time.deltaTime;
     }
 
@@ -41,10 +39,12 @@ public class PlayerShooting : MonoBehaviour
             _coolDownTimer = 0;
 
             int index = FindActiveBullet();
-            bullets[index].transform.position = (_lookUp) ? bulletHomePointUp.position : bulletHomePoint.position;
-            if (_lookUp) bullets[index].GetComponent<Bullet>().SetDirection(0.0f);
 
-            bullets[index].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
+            Vector2 direction = _lookUp ? Vector2.up : new Vector2(Mathf.Sign(transform.localScale.x), 0.0f);
+            Transform spawnPoint = _lookUp ? bulletHomePointUp : bulletHomePoint;
+
+            bullets[index].transform.position = spawnPoint.position;
+            bullets[index].GetComponent<Bullet>().SetDirection(direction);
         }
     }
 

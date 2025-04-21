@@ -15,8 +15,9 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float bulletLifeTime;
+    [SerializeField] Transform spriteTransform;
 
-    private float _direction;
+    private Vector2 _direction;
     private bool _hit;
     private float _lifeTime;
 
@@ -43,23 +44,22 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        float movementSpeed = (_direction == 0) ? speed * Time.deltaTime : _direction * speed * Time.deltaTime;
-        float wavePower = Mathf.Sin(Time.time * Mathf.PI * _direction);
+        transform.Translate(_direction.normalized * (speed * Time.deltaTime));
+        Vector3 waveFx = Vector3.zero;
 
-        if (_direction == 0)
+        // some fx -- continuous shaking 
+        float wavePower = Mathf.Sin(Time.time * Mathf.PI * 2f) * 0.01f;
+        if (_direction.y == 0)
         {
-            transform.Rotate(-90,0,0);
-            transform.Translate(Vector3.up * movementSpeed);
-            transform.position += new Vector3(wavePower, 0f, 0f);
-            
+            waveFx = new Vector3(0f, wavePower, 0f);
         }
-        else
+        else if (_direction.x == 0)
         {
-            transform.Translate(Vector3.up * movementSpeed);
+            waveFx = new Vector3(wavePower, 0f, 0f);
+        }
 
-            // some fx -- continuous shaking along oY axis
-            transform.position += new Vector3(0f, wavePower, 0f);
-        }
+        transform.position += waveFx;
+
 
         /*FIXED: исправить баг с тем, что при начале движения во
             время стрельбы пули друг друга догоняют
@@ -72,7 +72,8 @@ public class Bullet : MonoBehaviour
     {
         if (collision.TryGetComponent<IDamageable>(out var damageable))
         {
-            damageable.GetDamage();
+            if (!collision.CompareTag("Player"))
+                damageable.GetDamage();
         }
 
         _hit = true;
@@ -82,19 +83,19 @@ public class Bullet : MonoBehaviour
         // по завершении анимации "explode" Дергаем Deactivate(); 
     }
 
-    public void SetDirection(float _direction)
+    public void SetDirection(Vector2 direction)
     {
         /*Debug.Log("SET DIRECTION");*/
         _lifeTime = 0;
-        this._direction = _direction;
+        _direction = direction.normalized;
+
         gameObject.SetActive(true);
+
         _hit = false;
         _boxCollider.enabled = true;
 
-        float localScaleX = transform.localScale.x;
-        if (Math.Sign(localScaleX) != _direction)
-            localScaleX = -localScaleX;
-        transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+        spriteTransform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     private void Deactivate()
