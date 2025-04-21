@@ -1,5 +1,4 @@
 using System;
-
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -62,7 +61,7 @@ public class Player : Entity, IDamageable
     private void Update()
     {
         /*TODO:
-            исправить глитч с дэшем, 
+            исправить глитч с дэшем,
             инфинити дэш нот гуд */
         _playerAnim.SetDashing(_isDashing);
 
@@ -101,10 +100,10 @@ public class Player : Entity, IDamageable
         if (Input.GetKeyDown(KeyCode.LeftShift))
             Dash();
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && (IsGrounded() || IsGroundedOnWall()))
         {
-            Jump();
             _playerAnim.PlayJump();
+            Jump();
         }
 
         _playerAnim.SetRunning(isMoving);
