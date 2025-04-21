@@ -18,7 +18,7 @@ public class PlayerAnimation : EntityAnimation
     public void UpdateShootingAnimation(bool isShooting, bool isRunning, bool lookUp)
     {
         _anim.SetBool("shStraight", isShooting && !isRunning);
-        _anim.SetBool("shootingUp", isShooting && lookUp);
+        _anim.SetBool("shootUp", isShooting && lookUp);
     }
 
     /// <summary>
