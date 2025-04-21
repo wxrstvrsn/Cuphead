@@ -18,8 +18,8 @@ TagManager:
   - DeadZone
   - EditorOnly
   - Enemy
-  - 
-  - 
+  - PlayerBullet
+  - Player
   - 
   - 
   - 

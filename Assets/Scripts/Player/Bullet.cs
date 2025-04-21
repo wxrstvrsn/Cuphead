@@ -43,12 +43,23 @@ public class Bullet : MonoBehaviour
 
     private void Move()
     {
-        float movementSpeed = _direction * speed * Time.deltaTime;
-        transform.Translate(Vector3.right * movementSpeed);
+        float movementSpeed = (_direction == 0) ? speed * Time.deltaTime : _direction * speed * Time.deltaTime;
+        float wavePower = Mathf.Sin(Time.time * Mathf.PI * _direction);
 
-        // some fx -- continuous shaking along oY axis
-        float wavePower = Mathf.Sin(Time.time * 10f) * 0.01f;
-        transform.position += new Vector3(0f, wavePower, 0f);
+        if (_direction == 0)
+        {
+            transform.Rotate(-90,0,0);
+            transform.Translate(Vector3.up * movementSpeed);
+            transform.position += new Vector3(wavePower, 0f, 0f);
+            
+        }
+        else
+        {
+            transform.Translate(Vector3.up * movementSpeed);
+
+            // some fx -- continuous shaking along oY axis
+            transform.position += new Vector3(0f, wavePower, 0f);
+        }
 
         /*FIXED: исправить баг с тем, что при начале движения во
             время стрельбы пули друг друга догоняют
@@ -63,6 +74,7 @@ public class Bullet : MonoBehaviour
         {
             damageable.GetDamage();
         }
+
         _hit = true;
         _boxCollider.enabled = false;
         _anim.SetTrigger("explode");

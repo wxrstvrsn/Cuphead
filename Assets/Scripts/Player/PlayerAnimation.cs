@@ -15,9 +15,10 @@ public class PlayerAnimation : EntityAnimation
     /// </summary>
     /// <param name="isShooting"> Булевая переменная аниматора для трекинга состояния стрельбы </param>
     /// <param name="isRunning"> Булевая переменная аниматора для трекинга состояния бега </param>
-    public void UpdateShootingAnimation(bool isShooting, bool isRunning)
+    public void UpdateShootingAnimation(bool isShooting, bool isRunning, bool lookUp)
     {
         _anim.SetBool("shStraight", isShooting && !isRunning);
+        _anim.SetBool("shootingUp", isShooting && lookUp);
     }
 
     /// <summary>
