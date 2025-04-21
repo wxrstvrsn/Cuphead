@@ -49,7 +49,6 @@ public class RunnerEnemyPool : MonoBehaviour
             if (allowedToSpawn)
             {
                 _runners[i].Activate();
-                print("RUNNER ACTIVATED");
                 _timers[i] = 0;
             }
         }

@@ -45,7 +45,6 @@ public abstract class Enemy : Entity
         if (mono is IDamageable damageable)
         {
             damageable.GetDamage();
-            print("Enemy Hitted player");
         }
     }
 }

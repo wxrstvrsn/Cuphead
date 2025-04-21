@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour
             waveFx = new Vector3(wavePower, 0f, 0f);
         }
 
-        transform.position += waveFx;
+        /*transform.position += waveFx;*/
 
 
         /*FIXED: исправить баг с тем, что при начале движения во
@@ -85,7 +85,6 @@ public class Bullet : MonoBehaviour
 
     public void SetDirection(Vector2 direction)
     {
-        /*Debug.Log("SET DIRECTION");*/
         _lifeTime = 0;
         _direction = direction.normalized;
 

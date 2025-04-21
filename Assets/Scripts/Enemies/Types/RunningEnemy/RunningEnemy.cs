@@ -72,7 +72,6 @@ public class RunningEnemy : Enemy, IDamageable
 
         if ((IsObstacleAhead() || IsCliffAhead()) && (IsGrounded() || IsGroundedOnWall()))
         {
-            print("RUNNER TRYNA JUMP");
             Jump();
             _enemyAnimation.PlayJump();
         }
@@ -190,8 +189,7 @@ public class RunningEnemy : Enemy, IDamageable
         // TODO костыль с фризом переделать
         _body.constraints = RigidbodyConstraints2D.FreezeAll;
         GetCapsuleCollider.enabled = false;
-
-        print("RUNNING ENEMY MASLINY POJMAL");
+        
         _enemyAnimation.PlayDeath();
         // _anim.SetTrigger("death"); + event в Animation на Deactivate();
     }

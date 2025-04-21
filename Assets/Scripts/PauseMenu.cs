@@ -9,8 +9,6 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
-
-        print("CLICKED--------------------------------------------------------------");
     }
 
     public void Home()

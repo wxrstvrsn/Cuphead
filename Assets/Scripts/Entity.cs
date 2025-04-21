@@ -44,7 +44,6 @@ public class Entity : MonoBehaviour
         {
             // прыгалка
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce);
-            // print($"jupForce in Entity :: Jump: {jumpForce}");
         }
     }
 

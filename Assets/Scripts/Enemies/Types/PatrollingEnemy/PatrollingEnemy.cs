@@ -128,6 +128,6 @@ public class PatrollingEnemy : Enemy, IDamageable
 
     public void GetDamage()
     {
-        print("-----------PATROLLING ENEMY MASLINU POJMAL----------");
+        
     }
 }
