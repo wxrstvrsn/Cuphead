@@ -1,16 +1,14 @@
 using UnityEngine;
 
-public class CarrotAnimation : MonoBehaviour
+public class CarrotAnimation : EntityAnimation
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private void PlayIntro() => _anim.SetTrigger("intro");
+    
+    private void PlayLaser() => _anim.SetTrigger("laser");
+    
+    private void PlayDeath() => _anim.SetTrigger("death");
+    
+    private void PlayLaunchCarrots() => _anim.SetTrigger("carrots");
+    
+    private void PlayPrepare() => _anim.SetTrigger("prepare");
 }
