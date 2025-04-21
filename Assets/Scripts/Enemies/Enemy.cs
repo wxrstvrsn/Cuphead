@@ -11,8 +11,8 @@ public abstract class Enemy : Entity
     [SerializeField] protected float _activationRadius;
     
     protected bool _isActive;
-    
-    
+
+    protected EnemyAnimation _enemyAnimation;
     
 
     protected override void Awake()

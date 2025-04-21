@@ -13,7 +13,7 @@ public class ShootingEnemy : Enemy, IDamageable
 
     private Player _player;
     private Vector2 _bulletDirection;
-    private EnemyAnimation _enemyAnimation;
+    
 
     private void Update()
     {

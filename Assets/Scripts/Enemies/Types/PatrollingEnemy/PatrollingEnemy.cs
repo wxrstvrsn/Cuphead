@@ -14,7 +14,7 @@ public class PatrollingEnemy : Enemy, IDamageable
     [Header("Время, которое Патрулянт неактивен")] [SerializeField]
     private float _disableTime;
 
-    private EnemyAnimation _enemyAnimation;
+    
     private float _disableTimer;
     private float _direction = 1;
     /*private bool _isActive;*/

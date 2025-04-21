@@ -23,7 +23,7 @@ public class RunningEnemy : Enemy, IDamageable
 
     public float GetSpawnCooldown() => _spawnCooldown;
 
-    private EnemyAnimation _enemyAnimation;
+    
 
     private Vector3 _spawnPoint;
 

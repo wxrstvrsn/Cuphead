@@ -13,4 +13,14 @@ public class EnemyAnimation : EntityAnimation
     }
 
     public bool GetRunning() => _anim.GetBool("running");
+
+    public void PlayIdle()
+    {
+        _anim.SetTrigger("idle");
+    }
+
+    public void PlayIntro()
+    {
+        _anim.SetTrigger("intro");
+    }
 }
