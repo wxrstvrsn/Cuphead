@@ -7,7 +7,14 @@ public abstract class Boss : Entity, IDamageable
     [SerializeField] protected int maxHealth;
     [SerializeField] protected float phaseTransitionDelay = 2f;
 
-    
 
+    // TODO:
+    //      FSM - ???? мож попробовать?? 
+    
+    public void GetDamage()
+    {
+        throw new System.NotImplementedException();
+    }
+    
     
 }
