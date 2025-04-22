@@ -10,7 +10,7 @@
 
 ## 
 
-![задеплоенный билд](https://wxrstvrsn.github.io/CupheadWebBuild/) (см. релизы)
+[задеплоенный билд](https://wxrstvrsn.github.io/CupheadWebBuild/) (см. релизы)
 
 
 ---
