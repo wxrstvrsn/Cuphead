@@ -55,6 +55,7 @@ public class Player : Entity, IDamageable
     protected override void Awake()
     {
         base.Awake();
+        _body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         _playerAnim = GetComponent<PlayerAnimation>();
     }
 
