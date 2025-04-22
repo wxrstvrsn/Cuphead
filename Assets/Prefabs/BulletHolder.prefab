@@ -478,7 +478,6 @@ GameObject:
   - component: {fileID: 3394287026498466680}
   - component: {fileID: 9106167307110630585}
   - component: {fileID: 3281086171980547847}
-  - component: {fileID: 5535633014562635466}
   m_Layer: 10
   m_Name: Bullet (6)
   m_TagString: PlayerBullet
@@ -597,21 +596,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.8, y: 0.23}
   m_EdgeRadius: 0
---- !u!114 &5535633014562635466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1461319371101756465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e31055bd86482797178ad9034b4fb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 30
-  bulletLifeTime: 1.5
-  spriteTransform: {fileID: 8420396273978124787}
 --- !u!1 &1552971828552953981
 GameObject:
   m_ObjectHideFlags: 0

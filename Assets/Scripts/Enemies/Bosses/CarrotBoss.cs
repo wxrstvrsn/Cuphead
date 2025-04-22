@@ -1,23 +1,31 @@
-using System;
-using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 public class CarrotBoss : Boss
 {
-    [Header("CarrotBoss Attacks")] [SerializeField]
-    private GameObject projectilePrefab;
+    [Header("CarrotBoss Settings")] [SerializeField]
+    private float introDuration = 2f;
 
-    [SerializeField] private float _carrotLaunchCooldown;
-    [SerializeField] private float _laserDuration;
-    [SerializeField] private float _introDuration;
+    [SerializeField] private float laserDuration = 3f;
+    [SerializeField] private float carrotLaunchCooldown = 1f;
 
-    [SerializeField] private Transform[] firePoints;
+    [Header("Attack References")] [SerializeField]
+    private Transform[] firePoints;
 
-    private CarrotBossState _currentState;
+    [SerializeField] private CarrotBulletPool bulletPool;
+    [SerializeField] private Transform target;
+    [SerializeField] private float carrotBulletSpeed = 5f;
 
     private CarrotAnimation _carrotAnimation;
+    private CarrotBossState _currentState;
+
+    private enum CarrotBossState
+    {
+        Intro,
+        LaunchCarrots,
+        LaserShoot,
+        Death
+    }
 
     protected override void Awake()
     {
@@ -25,95 +33,81 @@ public class CarrotBoss : Boss
         _carrotAnimation = GetComponent<CarrotAnimation>();
     }
 
-    private enum CarrotBossState
-    {
-        Intro,
-        Idle,
-        LaunchCarrots,
-        LaserShoot,
-        Death
-    }
-
     private void Start()
     {
-            StartCoroutine(StateMachine());
+        StartCoroutine(StateMachine());
     }
 
     private IEnumerator StateMachine()
     {
-        yield return StartCoroutine(DoIntro());
+        yield return DoIntro();
 
         while (_currentState != CarrotBossState.Death)
         {
-            _currentState = (Random.Range(0, 2) == 0)
-                ? CarrotBossState.LaserShoot
-                : CarrotBossState.LaunchCarrots;
+            CarrotBossState nextState =
+                Random.Range(0, 2) == 0 ? CarrotBossState.LaunchCarrots : CarrotBossState.LaserShoot;
 
-            switch (_currentState)
+            switch (nextState)
             {
-                case CarrotBossState.LaserShoot:
-                    _carrotAnimation.PlayLaser();
-                    yield return LaserShoot();
-                    break;
-
                 case CarrotBossState.LaunchCarrots:
                     _carrotAnimation.PlayLaunchCarrots();
                     yield return LaunchCarrots();
                     break;
+                case CarrotBossState.LaserShoot:
+                    _carrotAnimation.PlayLaser();
+                    yield return LaserShoot();
+                    break;
             }
 
-            yield return new WaitForSeconds(10f);
+            yield return new WaitForSeconds(2f);
         }
 
-        yield return StartCoroutine(DeathSequence());
+        yield return DeathSequence();
     }
-
 
     private IEnumerator DoIntro()
     {
         _currentState = CarrotBossState.Intro;
-        Debug.Log("Carrot Boss Intro");
         _carrotAnimation.PlayIntro();
-
-        yield return new WaitForSeconds(_introDuration);
-
-        Debug.Log("Carrot Boss Intro FINISHED");
+        yield return new WaitForSeconds(introDuration);
     }
 
     private IEnumerator LaunchCarrots()
     {
         _currentState = CarrotBossState.LaunchCarrots;
-        Debug.Log("Carrot Boss Launch Carrots");
 
-        // TODO: object pooling + CarrotBullet.cs
+        for (int i = 0; i < 5; i++)
+        {
+            var carrot = bulletPool.GetCarrot();
+            Transform spawnPoint = firePoints[Random.Range(0, firePoints.Length)];
 
-        yield return new WaitForSeconds(_carrotLaunchCooldown);
+            carrot.transform.position = spawnPoint.position;
+            carrot.Activate(target, carrotBulletSpeed);
+        }
+
+        yield return new WaitForSeconds(carrotLaunchCooldown);
     }
 
     private IEnumerator LaserShoot()
     {
         _currentState = CarrotBossState.LaserShoot;
-        Debug.Log("Carrot Boss Laser Shooting");
-
-        yield return new WaitForSeconds(_laserDuration);
+        yield return new WaitForSeconds(laserDuration);
     }
 
     public void Die()
     {
         if (_currentState != CarrotBossState.Death)
         {
-            _currentState = CarrotBossState.Death;
             StopAllCoroutines();
             _currentState = CarrotBossState.Death;
-            Debug.Log("Carrot Boss Dead");
-            // TODO: доделать анимацию + ...
+            StartCoroutine(DeathSequence());
         }
     }
 
     private IEnumerator DeathSequence()
     {
         _carrotAnimation.PlayDeath();
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
 }
