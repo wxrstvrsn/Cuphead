@@ -8,9 +8,9 @@
 ---
 ![meme](https://github.com/user-attachments/assets/d8b3abcc-f88a-44f9-b2c2-4d313a7620ad)
 
-## 📸 Скриншоты
+## 
 
-![Игровой процесс]()
+![задеплоенный билд](https://wxrstvrsn.github.io/CupheadWebBuild/) (см. релизы)
 
 
 ---
