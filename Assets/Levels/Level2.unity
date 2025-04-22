@@ -1303,7 +1303,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 9.67, y: 1.1383615}
-  m_EdgeRadius: 0
+  m_EdgeRadius: 0.1
 --- !u!212 &2081359908
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1412,6 +1412,8 @@ GameObject:
   - component: {fileID: 2138659137}
   - component: {fileID: 2138659136}
   - component: {fileID: 2138659138}
+  - component: {fileID: 2138659140}
+  - component: {fileID: 2138659139}
   m_Layer: 0
   m_Name: Carrot
   m_TagString: Untagged
@@ -1511,6 +1513,46 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2138659139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138659135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bffa42640d0085e4f99c736099629c5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2138659140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138659135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90f0607c86dac0b4086e9b097f53af1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  jumpForce: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  healthPoints: 0
+  _activationRadius: 0
+  maxHealth: 0
+  projectilePrefab: {fileID: 0}
+  _carrotLaunchCooldown: 0
+  _laserDuration: 0
+  _introDuration: 0
+  firePoints: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
