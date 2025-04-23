@@ -55,7 +55,11 @@ public class CarrotBullet : MonoBehaviour, IDamageable
     {
         if (other.TryGetComponent<IDamageable>(out var damageable))
         {
-            damageable.GetDamage();
+            if (other.CompareTag("Player"))
+            {
+                damageable.GetDamage();
+            }
+
             Deactivate();
         }
     }

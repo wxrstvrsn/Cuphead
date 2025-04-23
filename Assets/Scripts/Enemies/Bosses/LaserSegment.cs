@@ -35,14 +35,16 @@ public class LaserSegment : MonoBehaviour
         _isActive = false;
         gameObject.SetActive(false);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent<IDamageable>(out var damageable))
+        if (other.CompareTag("Player"))
         {
-            damageable.GetDamage();
-            Deactivate();
+            if (other.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.GetDamage();
+                Deactivate();
+            }
         }
     }
-
 }
