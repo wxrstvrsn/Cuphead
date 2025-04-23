@@ -25,14 +25,12 @@ public class LaserPool : MonoBehaviour
                 return segment;
         }
 
-        // если все заняты — расширяем пул
-        var newSegment = Instantiate(_laserPrefab, transform);
+        LaserSegment newSegment = Instantiate(_laserPrefab, transform);
         newSegment.gameObject.SetActive(false);
 
-        var newPool = new LaserSegment[_pool.Length + 1];
-        _pool.CopyTo(newPool, 0);
-        newPool[^1] = newSegment;
-        _pool = newPool;
+        var list = new System.Collections.Generic.List<LaserSegment>(_pool);
+        list.Add(newSegment);
+        _pool = list.ToArray();
 
         return newSegment;
     }

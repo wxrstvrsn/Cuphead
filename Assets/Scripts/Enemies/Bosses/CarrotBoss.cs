@@ -50,7 +50,7 @@ public class CarrotBoss : MonoBehaviour
         {
             LaserSegment segment = laserPool.GetLaserSegment();
             segment.transform.position = transform.position;
-            segment.Activate(direction);
+            segment.Launch(direction);
 
             yield return new WaitForSeconds(laserInterval);
         }

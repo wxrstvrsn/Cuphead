@@ -150,6 +150,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1811947800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &259294480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1466776556337793934, guid: 283f9cc4a67ab4a4e8ada6b91deb68ff, type: 3}
+  m_PrefabInstance: {fileID: 854286884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &381964602
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b32391d8601cc4a9cf1f423715cb55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carrotPrefab: {fileID: 788631925320525543, guid: c753d6306f78be144bdcef962eb1422e, type: 3}
+  carrotPrefab: {fileID: -1981567824281642432, guid: c753d6306f78be144bdcef962eb1422e, type: 3}
   poolSize: 10
 --- !u!4 &1424321592
 Transform:
@@ -1201,7 +1206,7 @@ Transform:
   m_GameObject: {fileID: 1811947799}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6712477, y: 5.93, z: -8.702111}
+  m_LocalPosition: {x: 1.6712477, y: 5.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1253,17 +1258,12 @@ Transform:
   m_GameObject: {fileID: 1923264013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.09136776, y: 0.5547258, z: 0}
+  m_LocalPosition: {x: 4.44, y: 2.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1925437028 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6672631599921428636, guid: 283f9cc4a67ab4a4e8ada6b91deb68ff, type: 3}
-  m_PrefabInstance: {fileID: 854286884}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1935673809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1601,7 @@ MonoBehaviour:
   - {fileID: 1465878897}
   - {fileID: 167614353}
   bulletPool: {fileID: 1424321591}
-  target: {fileID: 1925437028}
+  target: {fileID: 259294480}
   laserPool: {fileID: 1923264014}
   laserCount: 10
   laserInterval: 0.2

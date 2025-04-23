@@ -2,55 +2,46 @@ using UnityEngine;
 
 public class CarrotBullet : MonoBehaviour
 {
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _homingDelay = 1f;
+    [SerializeField] private float _lifetime = 6f;
+
     private Transform _target;
     private Vector2 _direction;
-    private float _speed = 5f;
     private bool _isFlying;
+    private float _timer;
 
     public void Launch(Transform target)
     {
         _target = target;
-        _direction = Vector2.down;
+        _direction = Vector2.down; // начальное падение вниз
         _isFlying = true;
+        _timer = 0f;
+
         gameObject.SetActive(true);
 
-        // Через секунду прицеливаемся в игрока
-        Invoke(nameof(StartHoming), 2f);
+        // запланировать смену направления
+        Invoke(nameof(StartHoming), _homingDelay);
     }
-
 
     private void StartHoming()
     {
-        if (_target == null)
-        {
-            Debug.LogWarning("Нет цели для наведения у морковки!");
-            return;
-        }
+        if (_target == null) return;
 
-        Vector2 toTarget = (_target.position - transform.position);
-
-        // Проверка: не лететь "вверх", если игрок уже над нами
-        if (toTarget.y > 0)
-        {
-            Debug.Log("Цель выше пули, сохраняем направление вниз.");
-            return; // не меняем направление
-        }
-
-        _direction = toTarget.normalized;
-
-        // Для красоты: морковка поворачивается в сторону
-        transform.up = _direction;
+        _direction = (_target.position - transform.position).normalized;
     }
-
 
     private void Update()
     {
         if (!_isFlying) return;
 
-        transform.position += (Vector3)(_direction * _speed * Time.deltaTime);
+        transform.position += (Vector3)(_direction * (_speed * Time.deltaTime));
 
-        if (transform.position.y < -30f)
+        _timer += Time.deltaTime;
+        if (_timer >= _lifetime || transform.position.y < -30f)
+        {
             Deactivate();
+        }
     }
 
     public void Deactivate()
@@ -59,4 +50,14 @@ public class CarrotBullet : MonoBehaviour
         CancelInvoke();
         gameObject.SetActive(false);
     }
+    
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.GetDamage();
+            Deactivate();
+        }
+    }
+
 }
