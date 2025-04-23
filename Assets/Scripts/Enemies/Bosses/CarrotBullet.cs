@@ -2,9 +2,13 @@ using UnityEngine;
 
 public class CarrotBullet : MonoBehaviour, IDamageable
 {
+    [Header("Settings")]
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _homingDelay = 1f;
     [SerializeField] private float _lifetime = 6f;
+
+    [Header("References")]
+    [SerializeField] private Transform _visual;
 
     private Transform _target;
     private Vector2 _direction;
@@ -14,13 +18,13 @@ public class CarrotBullet : MonoBehaviour, IDamageable
     public void Launch(Transform target)
     {
         _target = target;
-        _direction = Vector2.down; // начальное падение вниз
+        _direction = Vector2.down; // падаем вниз сначала
         _isFlying = true;
         _timer = 0f;
 
         gameObject.SetActive(true);
 
-        // запланировать смену направления
+        // через _homingDelay секунды переключаемся на прицеливание
         Invoke(nameof(StartHoming), _homingDelay);
     }
 
@@ -29,7 +33,12 @@ public class CarrotBullet : MonoBehaviour, IDamageable
         if (_target == null) return;
 
         _direction = (_target.position - transform.position).normalized;
+
+        // Вращаем визуал по направлению (_direction) — коллинеарно!
+        float angle = Vector2.SignedAngle(Vector2.down, _direction);
+        _visual.rotation = Quaternion.Euler(0f, 0f, angle);
     }
+
 
     private void Update()
     {
@@ -48,9 +57,13 @@ public class CarrotBullet : MonoBehaviour, IDamageable
     {
         _isFlying = false;
         CancelInvoke();
+
+        // Сброс поворота спрайта
+        _visual.rotation = Quaternion.identity;
+
         gameObject.SetActive(false);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<IDamageable>(out var damageable))
@@ -60,6 +73,10 @@ public class CarrotBullet : MonoBehaviour, IDamageable
                 damageable.GetDamage();
             }
 
+            Deactivate();
+        }
+        else if (other.CompareTag("PlayerBullet"))
+        {
             Deactivate();
         }
     }
