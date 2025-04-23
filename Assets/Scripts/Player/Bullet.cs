@@ -53,8 +53,6 @@ public class Bullet : MonoBehaviour
 
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         spriteTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-
-        Debug.Log($"Bullet launched! POS: {transform.position} | DIR: {_direction}");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

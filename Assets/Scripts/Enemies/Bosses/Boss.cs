@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 
-public abstract class Boss : Enemy, IDamageable
+public abstract class Boss : Enemy
 {
     [Header("Boss Settings")] [SerializeField]
     protected int _healthPoints;
@@ -13,7 +13,5 @@ public abstract class Boss : Enemy, IDamageable
         //
     }
 
-    public void GetDamage()
-    {
-    }
+  
 }

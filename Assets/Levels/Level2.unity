@@ -2285,9 +2285,10 @@ GameObject:
   - component: {fileID: 2138659138}
   - component: {fileID: 2138659140}
   - component: {fileID: 2138659139}
-  m_Layer: 0
+  - component: {fileID: 2138659141}
+  m_Layer: 9
   m_Name: Carrot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2356,8 +2357,8 @@ Transform:
   m_GameObject: {fileID: 2138659135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.59, y: 0.93, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.35, y: 5.52, z: 0}
+  m_LocalScale: {x: 2.8425877, y: 2.8425877, z: 2.8425877}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2419,7 +2420,6 @@ MonoBehaviour:
   healthPoints: 0
   _activationRadius: 0
   _healthPoints: 19
-  bulletPool: {fileID: 1424321591}
   firePoints:
   - {fileID: 1173245537}
   - {fileID: 381964603}
@@ -2428,12 +2428,53 @@ MonoBehaviour:
   - {fileID: 1465878897}
   - {fileID: 167614353}
   playerTarget: {fileID: 259294480}
+  bulletPool: {fileID: 1424321591}
   laserPool: {fileID: 1923264014}
-  laserCount: 10
+  baseCarrotBulletCount: 5
+  baseCarrotBulletCooldown: 0.8
+  laserBaseCount: 5
   laserInterval: 0.2
-  carrotCooldown: 3
-  laserCooldown: 4
-  maxIdleTime: 6
+  maxHealth: 100
+  currentHealth: 100
+  maxAggressionMultiplicator: 2
+  baseIdleDuration: 10
+--- !u!70 &2138659141
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138659135}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.015903223, y: 0.48110947}
+  m_Size: {x: 1.9427218, y: 2.4069233}
+  m_Direction: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

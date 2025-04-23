@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Wall
   - PlayerBullet
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - PlayerBullet
   - Player
-  - 
+  - EnemyBullet
   - 
   - 
   - 

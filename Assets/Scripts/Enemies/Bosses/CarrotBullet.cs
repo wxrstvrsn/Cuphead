@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CarrotBullet : MonoBehaviour, IDamageable
+public class CarrotBullet : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float _speed = 5f;
@@ -71,18 +71,13 @@ public class CarrotBullet : MonoBehaviour, IDamageable
             if (other.CompareTag("Player"))
             {
                 damageable.GetDamage();
+                Deactivate();
             }
 
-            Deactivate();
         }
         else if (other.CompareTag("PlayerBullet"))
         {
             Deactivate();
         }
-    }
-
-    public void GetDamage()
-    {
-        Deactivate();
     }
 }
