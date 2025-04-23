@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &344316412475704627
+--- !u!1 &4066225363441785632
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8200846866683516330}
-  - component: {fileID: 4935324799541187680}
-  - component: {fileID: -1981567824281642432}
-  m_Layer: 0
-  m_Name: CarrotBullet
-  m_TagString: Enemy
+  - component: {fileID: 1349665020811207435}
+  - component: {fileID: 5371893043050063528}
+  - component: {fileID: 9093695306242689703}
+  m_Layer: 10
+  m_Name: BulletPlayer
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8200846866683516330
+--- !u!4 &1349665020811207435
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344316412475704627}
+  m_GameObject: {fileID: 4066225363441785632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.8380234, y: 1.7776046, z: 0}
+  m_LocalPosition: {x: -0.75568104, y: -2.2478871, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3642689254035626934}
+  - {fileID: 432188913551419502}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &4935324799541187680
+--- !u!50 &5371893043050063528
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344316412475704627}
+  m_GameObject: {fileID: 4066225363441785632}
   m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -49,7 +49,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -61,22 +61,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-1981567824281642432
+--- !u!114 &9093695306242689703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 344316412475704627}
+  m_GameObject: {fileID: 4066225363441785632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30d227c10ed91994287b51e8d05db8d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 55e31055bd86482797178ad9034b4fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
-  _homingDelay: 1
-  _lifetime: 6
---- !u!1 &4325330509728357761
+  speed: 5
+  lifetime: 3
+  spriteTransform: {fileID: 432188913551419502}
+  anim: {fileID: 5110022300536880162}
+  boxCollider: {fileID: 6153071591488984642}
+--- !u!1 &8607626732886710216
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,39 +86,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3642689254035626934}
-  - component: {fileID: 3182806871710851437}
-  - component: {fileID: 5323109725018189361}
-  - component: {fileID: 8410018414640857282}
-  m_Layer: 0
-  m_Name: CarrotBulletSprite
-  m_TagString: Untagged
+  - component: {fileID: 432188913551419502}
+  - component: {fileID: 4093517160453859565}
+  - component: {fileID: 6153071591488984642}
+  - component: {fileID: 5110022300536880162}
+  m_Layer: 10
+  m_Name: BulletPlayerVisual_and_Collider
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3642689254035626934
+--- !u!4 &432188913551419502
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4325330509728357761}
+  m_GameObject: {fileID: 8607626732886710216}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8200846866683516330}
+  m_Father: {fileID: 1349665020811207435}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3182806871710851437
+--- !u!212 &4093517160453859565
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4325330509728357761}
+  m_GameObject: {fileID: 8607626732886710216}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -153,8 +155,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
-  m_Sprite: {fileID: 5023626483991296545, guid: 12ed7931ef593004695bb66d683fc224, type: 3}
+  m_SortingOrder: 100
+  m_Sprite: {fileID: 21300000, guid: ae0253760d90d5f409bf5aa083363d29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,35 +167,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5323109725018189361
-Animator:
-  serializedVersion: 7
+--- !u!61 &6153071591488984642
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4325330509728357761}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 95e1778ca4e7d86409094fc782da81c5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!70 &8410018414640857282
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4325330509728357761}
+  m_GameObject: {fileID: 8607626732886710216}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -221,6 +201,37 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.06, y: -0.15}
-  m_Size: {x: 0.37, y: 1.03}
-  m_Direction: 0
+  m_Offset: {x: -0.11, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.8, y: 0.3}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.8, y: 0.3}
+  m_EdgeRadius: 0
+--- !u!95 &5110022300536880162
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8607626732886710216}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0be4e2de687143e45ab05721f188e9bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

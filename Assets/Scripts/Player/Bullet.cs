@@ -1,34 +1,17 @@
-﻿using System;
-using UnityEngine;
-
-/*
-TODO:
-    сделать абстрактным и наследовать PlayerBullet и EnemyBullet ??????
-    RigidBody2D надо вешать на пульку - ???
-    Если делать стрельбу типа по параболе -- gravity и сложная реализцаия
-    расчета вектора, по которой пускать пульку из врага, чтобы
-    она по баллистике попала в игрока, если он не увернется...
-    трайхард кароче
-    */
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float bulletLifeTime;
-    [SerializeField] Transform spriteTransform;
+    [SerializeField] private float lifetime = 3f;
+    [SerializeField] private Transform spriteTransform;
+    [SerializeField] private Animator anim;
+    [SerializeField] private BoxCollider2D boxCollider;
 
     private Vector2 _direction;
+    private float _timer;
     private bool _hit;
-    private float _lifeTime;
-
-    private Animator _anim;
-    private BoxCollider2D _boxCollider;
-
-    private void Awake()
-    {
-        _anim = GetComponent<Animator>();
-        _boxCollider = GetComponent<BoxCollider2D>();
-    }
 
     private void Update()
     {
@@ -36,10 +19,9 @@ public class Bullet : MonoBehaviour
 
         Move();
 
-        _lifeTime += Time.deltaTime;
-        if (_lifeTime > bulletLifeTime)
+        _timer += Time.deltaTime;
+        if (_timer > lifetime)
             Deactivate();
-        // !!! деактивируем по времени жизни пульки -->> если 
     }
 
     private void Move()
@@ -58,46 +40,40 @@ public class Bullet : MonoBehaviour
             waveFx = new Vector3(wavePower, 0f, 0f);
         }
 
-        /*transform.position += waveFx;*/
-
-
-        /*FIXED: исправить баг с тем, что при начале движения во
-            время стрельбы пули друг друга догоняют
-            может, необходимо добавить некую зависимость
-            от положения игрока (хотя и так есть BulletPoint)
-            короч подумать надо*/
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<IDamageable>(out var damageable))
-        {
-            if (!collision.CompareTag("Player"))
-                damageable.GetDamage();
-        }
-
-        _hit = true;
-        _boxCollider.enabled = false;
-        _anim.SetTrigger("explode");
-        //TODO: вместо двух строк последних -- просто SetTrigger("explode") + add event в Animation
-        // по завершении анимации "explode" Дергаем Deactivate(); 
+        transform.position += waveFx;
     }
 
     public void SetDirection(Vector2 direction)
     {
-        _lifeTime = 0;
         _direction = direction.normalized;
-
-        gameObject.SetActive(true);
-
+        _timer = 0f;
         _hit = false;
-        _boxCollider.enabled = true;
+        gameObject.SetActive(true);
+        boxCollider.enabled = true;
 
         float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
         spriteTransform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        Debug.Log($"Bullet launched! POS: {transform.position} | DIR: {_direction}");
     }
 
-    private void Deactivate()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //KOCTbIJLb ebony
+        if(collision.CompareTag("Player")) return;
+        
+        if (collision.TryGetComponent<IDamageable>(out var dmg))
+            dmg.GetDamage();
+
+        _hit = true;
+        boxCollider.enabled = false;
+        Deactivate();
+        //TODO: вместо двух строк последних -- просто SetTrigger("explode") + add event в Animation
+        // по завершении анимации "explode" Дергаем Deactivate(); 
+    }
+
+
+    public void Deactivate()
     {
         gameObject.SetActive(false);
     }

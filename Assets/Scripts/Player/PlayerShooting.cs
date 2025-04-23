@@ -2,64 +2,43 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField] private float attackCooldown;
+    [SerializeField] private float attackCooldown = 0.15f;
     [SerializeField] private Transform bulletHomePoint;
     [SerializeField] private Transform bulletHomePointUp;
     [SerializeField] private GameObject[] bullets;
 
-    private Player _player;
-    private PlayerAnimation _playerAnimation;
-    private float _coolDownTimer = Mathf.Infinity;
-
-    private bool _isShooting;
-    private bool _lookUp;
-
-    private void Awake()
-    {
-        _player = GetComponent<Player>();
-        _playerAnimation = GetComponent<PlayerAnimation>();
-    }
+    private float _cooldownTimer;
+    private bool _shootUp;
 
     private void Update()
     {
-        _isShooting = Input.GetKey(KeyCode.X);
-        _lookUp = Input.GetKey(KeyCode.UpArrow);
+        _shootUp = Input.GetKey(KeyCode.UpArrow);
 
-        UpdateAnimation();
-        HandleShooting();
-
-        _coolDownTimer += Time.deltaTime;
-    }
-
-    private void HandleShooting()
-    {
-        if (_isShooting && _coolDownTimer > attackCooldown)
+        if (Input.GetKeyDown(KeyCode.X) && _cooldownTimer >= attackCooldown)
         {
-            _coolDownTimer = 0;
+            _cooldownTimer = 0f;
 
-            int index = FindActiveBullet();
+            int index = FindBullet();
+            if (index >= 0)
+            {
+                Vector2 dir = _shootUp ? Vector2.up : new Vector2(transform.localScale.x, 0f);
+                Transform spawnPoint = _shootUp ? bulletHomePointUp : bulletHomePoint;
 
-            Vector2 direction = _lookUp ? Vector2.up : new Vector2(Mathf.Sign(transform.localScale.x), 0.0f);
-            Transform spawnPoint = _lookUp ? bulletHomePointUp : bulletHomePoint;
-
-            bullets[index].transform.position = spawnPoint.position;
-            bullets[index].GetComponent<Bullet>().SetDirection(direction);
+                bullets[index].transform.position = spawnPoint.position;
+                bullets[index].GetComponent<Bullet>().SetDirection(dir);
+            }
         }
+
+        _cooldownTimer += Time.deltaTime;
     }
 
-    private void UpdateAnimation()
-    {
-        _playerAnimation.UpdateShootingAnimation(_isShooting, _player.IsRunning(), _lookUp);
-    }
-
-    private int FindActiveBullet()
+    private int FindBullet()
     {
         for (int i = 0; i < bullets.Length; i++)
         {
             if (!bullets[i].activeInHierarchy)
                 return i;
         }
-
-        return 0;
+        return -1;
     }
 }

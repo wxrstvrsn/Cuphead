@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CarrotBullet : MonoBehaviour
+public class CarrotBullet : MonoBehaviour, IDamageable
 {
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _homingDelay = 1f;
@@ -60,4 +60,8 @@ public class CarrotBullet : MonoBehaviour
         }
     }
 
+    public void GetDamage()
+    {
+        Deactivate();
+    }
 }
