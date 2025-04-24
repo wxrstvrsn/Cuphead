@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 1.0
+  bundleVersion: 0.1.0-beta
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   metroInputSource: 0
@@ -307,12 +307,16 @@ PlayerSettings:
   openGLRequireES31: 0
   openGLRequireES31AEP: 0
   openGLRequireES32: 0
-  m_TemplateCustomTags: {}
+  m_TemplateCustomTags:
+    PRODUCT_DESCRIPTION: just tryna copy cuphead xD
   mobileMTRendering:
     Android: 1
     iPhone: 1
     tvOS: 1
-  m_BuildTargetGroupLightmapEncodingQuality: []
+  m_BuildTargetGroupLightmapEncodingQuality:
+  - serializedVersion: 2
+    m_BuildTarget: WebGL
+    m_EncodingQuality: 0
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding: []
@@ -565,7 +569,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: APPLICATION:Default
+  webGLTemplate: APPLICATION:PWA
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 2

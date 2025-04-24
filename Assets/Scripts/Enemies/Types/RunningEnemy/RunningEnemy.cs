@@ -180,6 +180,11 @@ public class RunningEnemy : Enemy, IDamageable
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("DeadZone") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("EditorOnly"))
+        {
+            GetDamage();
+        }
         // 
     }
 

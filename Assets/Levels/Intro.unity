@@ -656,7 +656,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f9f6f7795034341978fd60a65342c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextSceneName: LevelSelectScene
+  nextSceneName: Level Select
 --- !u!1 &2069202187
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,6 +668,7 @@ GameObject:
   - component: {fileID: 2069202188}
   - component: {fileID: 2069202190}
   - component: {fileID: 2069202189}
+  - component: {fileID: 2069202191}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -691,7 +692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 26.599976}
   m_SizeDelta: {x: 1920, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2069202189
@@ -714,17 +715,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FDknfkdjnfdnfmdn
+  m_text: PRESS ANY KEY TO CONTINUE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c7a3c69035d46b5469092f682153f2e8, type: 2}
-  m_sharedMaterial: {fileID: 7318323486578687011, guid: c7a3c69035d46b5469092f682153f2e8, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 28e11b78128bc7444a00441393fcc3b1, type: 2}
+  m_sharedMaterial: {fileID: 7039454294046433043, guid: 28e11b78128bc7444a00441393fcc3b1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 14211288
+  m_fontColor: {r: 0.8470589, g: 0.8470589, b: 0.8470589, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -741,8 +742,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 68
+  m_fontSizeBase: 68
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -793,6 +794,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069202187}
   m_CullTransparentMesh: 1
+--- !u!95 &2069202191
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2069202187}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e987ecb4c05adb4408c3a04eecd02cd5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
