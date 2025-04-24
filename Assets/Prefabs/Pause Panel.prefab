@@ -218,8 +218,8 @@ RectTransform:
   m_GameObject: {fileID: 407019838258449676}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3207958311629344230}
   - {fileID: 3066165063021084432}
@@ -227,10 +227,10 @@ RectTransform:
   - {fileID: 5006446968498884904}
   m_Father: {fileID: 4638383658353310173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1351295245621163278
 GameObject:
@@ -651,7 +651,6 @@ GameObject:
   - component: {fileID: 4638383658353310173}
   - component: {fileID: 3194483904584356186}
   - component: {fileID: 1393486478160008695}
-  - component: {fileID: 2803785401235546289}
   m_Layer: 5
   m_Name: Pause Panel
   m_TagString: Untagged
@@ -717,18 +716,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2803785401235546289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9181820010572419781}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90f2dfccd7216f64f8ab0b46b7bf2216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleDuration: 0.5
-  targetScale: {x: 1, y: 1, z: 1}
-  blackPanel: {fileID: 0}
