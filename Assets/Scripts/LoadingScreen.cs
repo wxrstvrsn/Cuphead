@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,6 +9,13 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private Image blackPanel; // Панель для fade
     [SerializeField] private float fadeDuration = 2f;
     [SerializeField] private float minLoadTime = 5f;
+    [SerializeField] private GameObject deathlessObjects;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(deathlessObjects);
+    }
 
     private void Start()
     {
@@ -16,10 +24,12 @@ public class LoadingScreen : MonoBehaviour
 
     private IEnumerator TransitionRoutine()
     {
-        yield return FadeIn(); // затемнение
+        // Плавное появление загрузочной сцены
+        yield return FadeIn(); 
 
+        // Загружаем сцену в фоне
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(SceneLoader.TargetSceneName);
-        asyncLoad.allowSceneActivation = false;
+        asyncLoad.allowSceneActivation = false;  // Сцена не активируется, пока не будет готова
 
         float timer = 0f;
 
@@ -27,15 +37,17 @@ public class LoadingScreen : MonoBehaviour
         {
             timer += Time.deltaTime;
 
+            // Как только сцена почти загружена и минимальное время прошло
             if (asyncLoad.progress >= 0.9f && timer >= minLoadTime)
             {
-                asyncLoad.allowSceneActivation = true;
+                asyncLoad.allowSceneActivation = true;  // Активируем сцену
             }
 
             yield return null;
         }
 
-        yield return FadeOut(); // убираем черноту
+        // Плавное исчезновение загрузочного экрана
+        yield return FadeOut(); 
     }
 
     private IEnumerator FadeIn()
