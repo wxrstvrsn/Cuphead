@@ -40,7 +40,8 @@ public class GameController : MonoBehaviour
     public void GoToLevelSelect()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Level Select");
+        
+        SceneLoader.Load("Level Select");
     }
 
     public void QuitGame()

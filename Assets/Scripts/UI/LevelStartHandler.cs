@@ -62,6 +62,7 @@ public class LevelStartHandler : MonoBehaviour
 
     public void PlayLevel()
     {
-        SceneManager.LoadScene(levelName);
+        // SceneManager.LoadScene(levelName);
+        SceneLoader.Load(levelName);
     }
 }

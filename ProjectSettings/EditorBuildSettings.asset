@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Levels/Intro.unity
     guid: eaae40290fabbe54abca381b24710237
   - enabled: 1
+    path: Assets/Levels/Loading Scene.unity
+    guid: c007292ea0ad8a94eb72235b9378c77e
+  - enabled: 1
     path: Assets/Levels/Level Select.unity
     guid: d43d8f4bd16bcc5429e9018150def82c
   - enabled: 1

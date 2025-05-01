@@ -2331,6 +2331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level Start Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 8336753835627728685, guid: 487ab84058384804c94afde621a6f073, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
