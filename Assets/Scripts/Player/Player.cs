@@ -145,6 +145,7 @@ public class Player : Entity, IDamageable
         if (other.gameObject.layer == LayerMask.NameToLayer("DeadZone"))
         {
             _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
+            AudioManager.Instance.PlaySFX("death");
             _playerAnim.PlayHit();
         }
     }

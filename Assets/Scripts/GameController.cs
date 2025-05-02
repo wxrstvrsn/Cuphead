@@ -41,6 +41,7 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Level Select");
+        AudioManager.Instance.PlayMusic("MUS_Intro");
     }
 
     public void QuitGame()

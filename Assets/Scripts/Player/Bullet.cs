@@ -30,7 +30,7 @@ public class Bullet : MonoBehaviour
         Vector3 waveFx = Vector3.zero;
 
         // some fx -- continuous shaking 
-        float wavePower = Mathf.Sin(Time.time * Mathf.PI * 2f) * 0.01f;
+        float wavePower = Mathf.Sin(Time.time * Mathf.PI * 5f) * 0.01f;
         if (_direction.y == 0)
         {
             waveFx = new Vector3(0f, wavePower, 0f);

@@ -1846,6 +1846,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStartMenu: {fileID: 6274002054324827757}
   levelName: Forest Follies
+  soundtrack: MUS_ForestFollies
 --- !u!58 &1721097525
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1988,6 +1989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelStartMenu: {fileID: 6274002054324827757}
   levelName: Root Pack
+  soundtrack: MUS_RootPack
 --- !u!58 &1775624875
 CircleCollider2D:
   m_ObjectHideFlags: 0

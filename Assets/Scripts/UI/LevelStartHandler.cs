@@ -12,6 +12,8 @@ public class LevelStartHandler : MonoBehaviour
 
     [Header("Level To Start")]
     private string levelName;
+    
+    private string soundtrack;
 
     private Coroutine _scaleCoroutine;
 
@@ -22,9 +24,10 @@ public class LevelStartHandler : MonoBehaviour
         blackPanel.SetActive(false);
     }
 
-    public void Activate(string _levelName)
+    public void Activate(string _levelName, string _soundtrack)
     {
         levelName = _levelName;
+        soundtrack = _soundtrack;
         blackPanel.SetActive(true);
         gameObject.SetActive(true);
 
@@ -63,5 +66,6 @@ public class LevelStartHandler : MonoBehaviour
     public void PlayLevel()
     {
         SceneManager.LoadScene(levelName);
+        AudioManager.Instance.PlayMusic(soundtrack);
     }
 }
