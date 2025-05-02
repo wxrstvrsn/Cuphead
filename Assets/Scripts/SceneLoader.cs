@@ -1,12 +1,23 @@
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public static class SceneLoader
 {
-    public static string TargetSceneName = "Intro";
+    public static string TargetSceneName;
 
-    public static void Load(string sceneName)
+    /// <summary>
+    /// Загружаем любую сцену через прокладку LoadingScene
+    /// </summary>
+    public static void Load(string targetScene)
     {
-        TargetSceneName = sceneName;
-        SceneManager.LoadScene("Loading Scene");
+        TargetSceneName = targetScene;
+
+        if (LoadingSystem.Instance != null)
+        {
+            LoadingSystem.Instance.LoadScene("Loading Scene");
+        }
+        else
+        {
+            Debug.LogError("LoadingSystem.Instance is NULL. Did you start from LoadingScene?");
+        }
     }
 }

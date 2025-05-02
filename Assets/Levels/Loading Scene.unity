@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 209154814}
   - component: {fileID: 209154813}
   - component: {fileID: 209154812}
+  - component: {fileID: 209154816}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -255,6 +256,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &209154816
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209154811}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &646745056
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,10 +372,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c02c554a859abd34693c277969e544aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackPanel: {fileID: 646745058}
-  fadeDuration: 2
-  minLoadTime: 5
+  fadeCanvas: {fileID: 209154816}
   deathlessObjects: {fileID: 167795920}
+  fadeDuration: 2
+  minLoadTime: 1
 --- !u!4 &663720626
 Transform:
   m_ObjectHideFlags: 0
