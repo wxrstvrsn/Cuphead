@@ -5,6 +5,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject blackPanel;
+    [SerializeField] private SceneFader sceneFader;
     private bool _isPaused;
 
     private void Update()
@@ -40,7 +41,7 @@ public class GameController : MonoBehaviour
     public void GoToLevelSelect()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Level Select");
+        sceneFader.StartTransition("Level Select");
         AudioManager.Instance.PlayMusic("MUS_Intro");
     }
 

@@ -9,6 +9,8 @@ public class LevelStartHandler : MonoBehaviour
 
     [SerializeField] private Vector3 targetScale = Vector3.one;
     [SerializeField] private GameObject blackPanel;
+    
+    [SerializeField] SceneFader sceneFader;
 
     [Header("Level To Start")]
     private string levelName;
@@ -65,7 +67,8 @@ public class LevelStartHandler : MonoBehaviour
 
     public void PlayLevel()
     {
-        SceneManager.LoadScene(levelName);
+        print("PlayLevel CLICKED");
+        sceneFader.StartTransition(levelName);
         AudioManager.Instance.PlayMusic(soundtrack);
     }
 }
