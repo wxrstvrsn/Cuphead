@@ -1,6 +1,6 @@
 ![](Assets/Materials/logo.png)
 # 🎮 Кружкоголовый
-## 🎮[Game Demo (click here to watch screenrec)](https://drive.google.com/file/d/1UeSTrJlNocsTJws4vFPobqDCw-S935Vc/view?usp=sharing)
+## 🎮[Game Demo (click here to watch screenrec)](https://drive.google.com/file/d/1WKxSQlqPZoRy0QzZ2G5LN5zsowlM99RN/view?usp=sharing)
 ![Build With Unity](https://img.shields.io/badge/Unity-6000.0.42f1+-black?logo=unity&style=flat-square)
 
 > Краткое описание игры: **TODO**
