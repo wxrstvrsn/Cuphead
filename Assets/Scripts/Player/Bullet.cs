@@ -27,20 +27,6 @@ public class Bullet : MonoBehaviour
     private void Move()
     {
         transform.Translate(_direction.normalized * (speed * Time.deltaTime));
-        Vector3 waveFx = Vector3.zero;
-
-        // some fx -- continuous shaking 
-        float wavePower = Mathf.Sin(Time.time * Mathf.PI * 5f) * 0.01f;
-        if (_direction.y == 0)
-        {
-            waveFx = new Vector3(0f, wavePower, 0f);
-        }
-        else if (_direction.x == 0)
-        {
-            waveFx = new Vector3(wavePower, 0f, 0f);
-        }
-
-        transform.position += waveFx;
     }
 
     public void SetDirection(Vector2 direction)

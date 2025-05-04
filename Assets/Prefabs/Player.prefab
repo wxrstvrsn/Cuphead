@@ -30,39 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1466776556337793934}
-  - {fileID: 2043838127101852186}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2055865889940474036
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2043838127101852186}
-  m_Layer: 0
-  m_Name: FxHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2043838127101852186
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055865889940474036}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 81.700165, y: -4.2676883, z: -27.27945}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6672631599921428636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3876994228460576901
 GameObject:
@@ -74,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5617575839821398564}
   - component: {fileID: 6090100399732753878}
+  - component: {fileID: 7380368048258557725}
   m_Layer: 11
   m_Name: Bullet Point
   m_TagString: Untagged
@@ -151,6 +120,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7380368048258557725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3876994228460576901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac11f44dc1f45779f21a52595ad8e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.2
+  frequency: 2
+  direction: {x: 1, y: 0}
 --- !u!1 &4452333338745905132
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,6 +145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5449193207311399736}
   - component: {fileID: 2995510099543073073}
+  - component: {fileID: 5342492716104341628}
   m_Layer: 11
   m_Name: Bullet Point Up
   m_TagString: Untagged
@@ -238,6 +223,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5342492716104341628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4452333338745905132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac11f44dc1f45779f21a52595ad8e88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.2
+  frequency: 2
+  direction: {x: 0, y: 1}
 --- !u!1 &6787361561297636157
 GameObject:
   m_ObjectHideFlags: 0
