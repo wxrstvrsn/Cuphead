@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!sceneFader.IsTransitioning && Input.GetKeyDown(KeyCode.Escape))
         {
             Pause();
         }
@@ -34,12 +34,16 @@ public class GameController : MonoBehaviour
 
     public void RestartLevel()
     {
+        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
+        
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void GoToLevelSelect()
     {
+        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
+        
         Time.timeScale = 1f;
         sceneFader.StartTransition("Level Select");
         AudioManager.Instance.PlayMusic("MUS_Intro");
@@ -47,6 +51,8 @@ public class GameController : MonoBehaviour
 
     public void QuitGame()
     {
+        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
+        
         Time.timeScale = 1f;
         Application.Quit();
 #if UNITY_EDITOR

@@ -16,7 +16,7 @@ public class IntroManager : MonoBehaviour
 
     void Update()
     {
-        if (!_isLoading && Input.anyKeyDown && !IsMouseInput())
+        if (!sceneFader.IsTransitioning && Input.anyKeyDown && !IsMouseInput())
         {
             _isLoading = true;
             sceneFader.StartTransition(nextSceneName);
