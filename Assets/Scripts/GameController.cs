@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,23 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject blackPanel;
     [SerializeField] private SceneFader sceneFader;
     private bool _isPaused;
+
+    private void Start()
+    {
+        sceneFader.OnTransitionComplete += ActivateLevel();
+    }
+
+    private void PlayWelcomeSound()
+    {
+        
+    }
+
+    private void PlayWelcomeUI()
+    {
+        
+    }
+    
+    
 
     private void Update()
     {

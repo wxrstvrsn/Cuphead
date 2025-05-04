@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -20,6 +21,8 @@ public class SceneFader : MonoBehaviour
     [SerializeField] private float postFadeDelay = 0.3f;
 
     private bool isTransitioning;
+    
+    public event System.Action OnTransitionComplete;
 
     private void Awake()
     {
@@ -89,6 +92,7 @@ public class SceneFader : MonoBehaviour
 
         // Fade back in
         yield return Fade(1f, 0f, fadeDuration);
+        OnTransitionComplete?.Invoke();
 
         // Hide overlay and delay
         canvasGroup.gameObject.SetActive(false);
