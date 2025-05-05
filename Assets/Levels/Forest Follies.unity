@@ -1424,7 +1424,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.29, y: 6.81}
+    oldSize: {x: 11.290001, y: 6.8136916}
     newSize: {x: 11.29, y: 6.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2696,7 +2696,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.29, y: 6.81}
+    oldSize: {x: 11.290001, y: 6.8136916}
     newSize: {x: 11.29, y: 6.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5118,7 +5118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595095277776263710, guid: 4bef33e24e1b16b4894ce41e68fff3b9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7592440305478567786, guid: 4bef33e24e1b16b4894ce41e68fff3b9, type: 3}
       propertyPath: m_Pivot.x
@@ -6463,7 +6463,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.26, y: 7.95}
+    oldSize: {x: 11.259999, y: 7.9501753}
     newSize: {x: 11.26, y: 7.95}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7224,7 +7224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181820010572419781, guid: 36267fbd24ac85841801584bf88c8cf3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8514,7 +8514,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.29, y: 6.81}
+    oldSize: {x: 11.290001, y: 6.8136916}
     newSize: {x: 11.29, y: 6.81}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -12841,7 +12841,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.76, y: 6.6}
+    oldSize: {x: 10.761784, y: 6.6000004}
     newSize: {x: 10.76, y: 6.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
