@@ -1,10 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenu;
-    [SerializeField] SceneFader sceneFader;
+    [SerializeField] TransitionController transition;
+    
+    private string _currentSceneName;
+
+    private void Awake()
+    {
+        _currentSceneName = SceneManager.GetActiveScene().name;
+    }
 
     public void Pause()
     {
@@ -31,8 +40,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
+        transition.StartTransitionOut(_currentSceneName);
         Time.timeScale = 1;
     }
 }

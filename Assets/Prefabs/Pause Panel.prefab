@@ -651,6 +651,7 @@ GameObject:
   - component: {fileID: 4638383658353310173}
   - component: {fileID: 3194483904584356186}
   - component: {fileID: 1393486478160008695}
+  - component: {fileID: 4608159707738569454}
   m_Layer: 5
   m_Name: Pause Panel
   m_TagString: Untagged
@@ -676,7 +677,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1737.0898, y: 933.36304}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3194483904584356186
 CanvasRenderer:
@@ -716,3 +717,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4608159707738569454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9181820010572419781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89c219c1827c8cf4083c4222b62b9a85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 9181820010572419781}
+  transition: {fileID: 0}

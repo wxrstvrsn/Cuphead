@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class IntroManager : MonoBehaviour
 {
     [SerializeField] private string nextSceneName = "Leve Select"; // Название следующей сцены
-    [SerializeField] private SceneFader sceneFader;
+    [SerializeField] private TransitionController transition;
 
     private bool _isLoading = false;
 
@@ -16,10 +17,10 @@ public class IntroManager : MonoBehaviour
 
     void Update()
     {
-        if (!sceneFader.IsTransitioning && Input.anyKeyDown && !IsMouseInput())
+        if (Input.anyKeyDown && !IsMouseInput())
         {
             _isLoading = true;
-            sceneFader.StartTransition(nextSceneName);
+            transition.StartTransitionOut(nextSceneName);
         }
     }
 

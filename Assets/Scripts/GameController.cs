@@ -1,18 +1,29 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenuUI;
+    [Header("UI References")] [SerializeField]
+    private GameObject pauseMenuUI;
+
     [SerializeField] private GameObject blackPanel;
-    [SerializeField] private SceneFader sceneFader;
+    [SerializeField] private TransitionController transition;
+
     private bool _isPaused;
+    private string _currentSceneName;
+
+    private void Awake()
+    {
+        _currentSceneName = SceneManager.GetActiveScene().name;
+    }
 
     private void Update()
     {
-        if (!sceneFader.IsTransitioning && Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause();
+            if (_isPaused) Resume();
+            else Pause();
         }
     }
 
@@ -32,28 +43,39 @@ public class GameController : MonoBehaviour
         _isPaused = true;
     }
 
+    /// <summary>
+    /// Перезапустить текущий уровень через SceneFader
+    /// </summary>
     public void RestartLevel()
     {
-        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
         
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        _isPaused = false;
+        
+        transition.StartTransitionOut(_currentSceneName);
     }
 
+    /// <summary>
+    /// Перейти в меню выбора уровня через SceneFader
+    /// </summary>
     public void GoToLevelSelect()
     {
-        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
-        
+
         Time.timeScale = 1f;
-        sceneFader.StartTransition("Level Select");
-        AudioManager.Instance.PlayMusic("MUS_Intro");
+        _isPaused = false;
+
+        transition.StartTransitionOut("Level Select");
+        // AudioManager.Instance.PlayMusic("MUS_Intro"); TODO : remove comm 
     }
 
+    /// <summary>
+    /// Выйти из игры (или остановить Play Mode в Editor)
+    /// </summary>
     public void QuitGame()
     {
-        if (sceneFader.IsTransitioning) return; // TODO переделать ебаный костыль
-        
         Time.timeScale = 1f;
+        _isPaused = false;
+
         Application.Quit();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

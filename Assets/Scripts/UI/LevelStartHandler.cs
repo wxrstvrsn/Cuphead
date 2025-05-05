@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class LevelStartHandler : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class LevelStartHandler : MonoBehaviour
     [SerializeField] private Vector3 targetScale = Vector3.one;
     [SerializeField] private GameObject blackPanel;
     
-    [SerializeField] SceneFader sceneFader;
+    [SerializeField] TransitionController transition;
 
     [Header("Level To Start")]
     private string levelName;
@@ -67,8 +68,9 @@ public class LevelStartHandler : MonoBehaviour
 
     public void PlayLevel()
     {
-        print("PlayLevel CLICKED");
-        sceneFader.StartTransition(levelName);
-        AudioManager.Instance.PlayMusic(soundtrack);
+        print("[LevelStartHandler] PlayLevel CLICKED");
+        transition.StartTransitionOut(levelName);
+        print("[LevelStartHandler] TRANSITION STARTED");
+        // AudioManager.Instance.PlayMusic(soundtrack); TODO: remove comm
     }
 }
