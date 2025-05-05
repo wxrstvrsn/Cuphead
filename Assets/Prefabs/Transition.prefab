@@ -54,7 +54,7 @@ MonoBehaviour:
   hourglassImage: {fileID: 7564474327601842059}
   contractTrigger: Contract
   expandTrigger: Expand
-  minBlackTime: 0.5
+  minBlackTime: 2
   hourglassFade: 0.3
 --- !u!1 &3885846158508862990
 GameObject:

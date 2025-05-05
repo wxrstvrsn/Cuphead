@@ -32,6 +32,7 @@ public class TransitionController : MonoBehaviour
     {
         print("[TransitionController] START TRANSITION SUMMONED");
         if (isTransitioning) return;
+        isTransitioning = true;
         print("[TransitionController] SET ACTIVE true");
         gameObject.SetActive(true); // Костыль?? TODO
         // Запускаем контракт (сжатие круга → чёрный)
@@ -43,21 +44,21 @@ public class TransitionController : MonoBehaviour
     {
         print("[TransitionController] PHASEOUT SUMMONED");
         isTransitioning = true;
+        hourglassImage.gameObject.SetActive(true);
         // 1) Запустить анимацию Contract
         circleAnimator.SetTrigger(contractTrigger);
         float durContract = GetClipLength(circleAnimator, contractTrigger);
         yield return new WaitForSeconds(durContract);
 
-        // 2) Ждём заданное время на полном чёрном
+        // 2) Плавно выходим часики
+        if (hourglassImage)
+        {
+            yield return StartCoroutine(FadeImage(hourglassImage, 0f, 1f, hourglassFade));
+        }
+        // 3) Ждём заданное время на полном чёрном
         yield return new WaitForSeconds(minBlackTime);
 
         print("[TransitionController] SMOOTH HOURGLASS");
-        // 3) Плавно уходим часики (optional)
-        if (hourglassImage)
-        {
-            yield return StartCoroutine(FadeImage(hourglassImage, 1f, 0f, hourglassFade));
-            hourglassImage.gameObject.SetActive(false);
-        }
 
         // 4) Загружаем следующую сцену (Single), убивая этот Transition
         print($"[TransitionController] LOADING {nextSceneName}");
