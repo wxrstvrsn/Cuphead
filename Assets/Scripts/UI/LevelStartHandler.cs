@@ -71,6 +71,6 @@ public class LevelStartHandler : MonoBehaviour
         print("[LevelStartHandler] PlayLevel CLICKED");
         transition.StartTransitionOut(levelName);
         print("[LevelStartHandler] TRANSITION STARTED");
-        // AudioManager.Instance.PlayMusic(soundtrack); TODO: remove comm
+        AudioManager.Instance.PlayMusic(soundtrack); 
     }
 }

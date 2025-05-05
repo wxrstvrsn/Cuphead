@@ -12,7 +12,7 @@ public class IntroManager : MonoBehaviour
 
     private void Start()
     {
-        AudioManager.Instance.PlayMusic("MUS_Intro");
+        AudioManager.Instance.PlayMusic("MUS_Intro_DontDealWithDevil_Vocal");
     }
 
     void Update()
@@ -21,6 +21,7 @@ public class IntroManager : MonoBehaviour
         {
             _isLoading = true;
             transition.StartTransitionOut(nextSceneName);
+            AudioManager.Instance.PlayMusic("MUS_Intro");
         }
     }
 

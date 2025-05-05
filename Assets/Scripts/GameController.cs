@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
         _isPaused = false;
 
         transition.StartTransitionOut("Level Select");
-        // AudioManager.Instance.PlayMusic("MUS_Intro"); TODO : remove comm 
+        AudioManager.Instance.PlayMusic("MUS_Intro"); 
     }
 
     /// <summary>
