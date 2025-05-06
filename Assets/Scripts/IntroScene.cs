@@ -21,7 +21,8 @@ public class IntroManager : MonoBehaviour
         {
             _isLoading = true;
             transition.StartTransitionOut(nextSceneName);
-            AudioManager.Instance.PlayMusic("MUS_Intro");
+            AudioManager.Instance.PlayAmbient();
+            // AudioManager.Instance.PlayMusic("MUS_Intro");
         }
     }
 

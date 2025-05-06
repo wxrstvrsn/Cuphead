@@ -9,12 +9,15 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Sources")]
     [SerializeField] private AudioSource musicSource;
     [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioSource ambientSource;
 
     [Header("Audio Clips")]
     [SerializeField] private AudioClip[] musicClips;
     [SerializeField] private AudioClip[] sfxClips;
     [SerializeField] private AudioClip[] sfxClipsNarratorA;
     [SerializeField] private AudioClip[] sfxClipsNarratorB;
+    
+    [SerializeField] private AudioClip pickUpSound;
 
     private Dictionary<string, AudioClip> musicDict;
     private Dictionary<string, AudioClip> sfxDict;
@@ -44,15 +47,15 @@ public class AudioManager : MonoBehaviour
             sfxDict[clip.name] = clip;
     }
 
-    public void PlayWelcome()
+    public void PlayNarratorA()
     {
-        int index = Random.Range(0, sfxClipsNarratorA.Length);
+        int index = GetRandomIndex(sfxClipsNarratorA);
         sfxSource.PlayOneShot(sfxClipsNarratorA[index]);
     }
     
-    public void PlayGo()
+    public void PlayNarratorB()
     {
-        int index = Random.Range(0, sfxClipsNarratorB.Length);
+        int index = GetRandomIndex(sfxClipsNarratorB);
         sfxSource.PlayOneShot(sfxClipsNarratorB[index]);
     }
 
@@ -68,6 +71,28 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning($"[AudioManager] Музыка '{name}' не найдена.");
         }
+    }
+
+    public void PlayAmbient()
+    {
+        sfxSource.PlayOneShot(pickUpSound);
+        musicSource.Stop();
+        if (sfxDict.TryGetValue("sfx_OpticalLoop", out var clip))
+        {
+            ambientSource.clip = clip;
+            musicSource.loop = true;
+            ambientSource.Play();
+        }
+    }
+
+    public void StopAmbient()
+    {
+        ambientSource.Stop();
+    }
+
+    private int GetRandomIndex(AudioClip[] clips)
+    {
+        return Random.Range(0, clips.Length);
     }
 
     public void PlaySFX(string name)

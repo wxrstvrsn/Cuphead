@@ -2288,6 +2288,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1937563824}
     - target: {fileID: 6089144731440102946, guid: 487ab84058384804c94afde621a6f073, type: 3}
+      propertyPath: soundtrack
+      value: MUS_Intro
+      objectReference: {fileID: 0}
+    - target: {fileID: 6089144731440102946, guid: 487ab84058384804c94afde621a6f073, type: 3}
       propertyPath: transition
       value: 
       objectReference: {fileID: 1607840566}

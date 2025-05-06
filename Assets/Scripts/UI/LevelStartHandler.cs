@@ -16,9 +16,21 @@ public class LevelStartHandler : MonoBehaviour
     [Header("Level To Start")]
     private string levelName;
     
-    private string soundtrack;
+    [SerializeField] private string soundtrack;
 
     private Coroutine _scaleCoroutine;
+
+    private void Start()
+    {
+        StartCoroutine(PlayLevelSoundtrack());
+    }
+
+    private IEnumerator PlayLevelSoundtrack()
+    {
+        yield return new WaitForSeconds(2.0f);
+        // AudioManager.Instance.PlayMusic(soundtrack);
+        AudioManager.Instance.StopAmbient();
+    }
 
     private void Awake()
     {
@@ -70,7 +82,8 @@ public class LevelStartHandler : MonoBehaviour
     {
         print("[LevelStartHandler] PlayLevel CLICKED");
         transition.StartTransitionOut(levelName);
+        AudioManager.Instance.PlayAmbient();
         print("[LevelStartHandler] TRANSITION STARTED");
-        AudioManager.Instance.PlayMusic(soundtrack); 
+        
     }
 }
