@@ -22,6 +22,8 @@ public class AudioManager : MonoBehaviour
     private Dictionary<string, AudioClip> musicDict;
     private Dictionary<string, AudioClip> sfxDict;
 
+    public string currentSoundTrack;
+
     private void Awake()
     {
         // Singleton
@@ -66,11 +68,18 @@ public class AudioManager : MonoBehaviour
             musicSource.clip = clip;
             musicSource.loop = loop;
             musicSource.Play();
+            StopAmbient();
         }
         else
         {
             Debug.LogWarning($"[AudioManager] Музыка '{name}' не найдена.");
         }
+    }
+
+    public void PlaySoundtrack()
+    {
+        PlayMusic(currentSoundTrack, true);
+        StopAmbient();
     }
 
     public void PlayAmbient()

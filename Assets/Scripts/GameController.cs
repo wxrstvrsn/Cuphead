@@ -31,16 +31,27 @@ public class GameController : MonoBehaviour
         {
             StartCoroutine(PlayNarratorSequence());
         }
+        else
+        {
+            StartCoroutine(PlayLevelSoundtrack());
+        }
     }
 
     private IEnumerator PlayNarratorSequence()
     {
         yield return new WaitForSeconds(1f);
-        AudioManager.Instance.PlayMusic("MUS_ForestFollies");
+        print("SHIIIIIIIIIIIIIIIT");
+        AudioManager.Instance.PlaySoundtrack();
         yield return new WaitForSeconds(2f);
         AudioManager.Instance.PlayNarratorA();
         yield return new WaitForSeconds(narratorPause);
         wallopReady.SetActive(true);
+    }
+
+    private IEnumerator PlayLevelSoundtrack()
+    {
+        yield return new WaitForSeconds(1f);
+        AudioManager.Instance.PlaySoundtrack();
     }
 
     private void Update()
@@ -56,6 +67,7 @@ public class GameController : MonoBehaviour
     {
         blackPanel.SetActive(false);
         pauseMenuUI.SetActive(false);
+        // AudioManager.Instance.DisableEQ(); TODO
         Time.timeScale = 1f;
         _isPaused = false;
     }
@@ -64,18 +76,19 @@ public class GameController : MonoBehaviour
     {
         blackPanel.SetActive(true);
         pauseMenuUI.SetActive(true);
+        // AudioManager.Instance.EnableEQ(); TODO: сделать "эквалайзер" для приглушения подводног когда стоим на паузе
         Time.timeScale = 0f;
         _isPaused = true;
     }
 
     /// <summary>
-    /// Перезапустить текущий уровень через SceneFader
+    /// Перезапустить текущий уровень через TransitionController
     /// </summary>
     public void RestartLevel()
     {
         Time.timeScale = 1f;
         _isPaused = false;
-
+        AudioManager.Instance.PlayAmbient();
         transition.StartTransitionOut(_currentSceneName);
     }
 
@@ -86,9 +99,9 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1f;
         _isPaused = false;
-
+        AudioManager.Instance.PlayAmbient();
         transition.StartTransitionOut("Level Select");
-        AudioManager.Instance.PlayMusic("MUS_Intro");
+        AudioManager.Instance.currentSoundTrack = "MUS_Intro";
     }
 
     /// <summary>

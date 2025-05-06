@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,19 +20,7 @@ public class LevelStartHandler : MonoBehaviour
     [SerializeField] private string soundtrack;
 
     private Coroutine _scaleCoroutine;
-
-    private void Start()
-    {
-        StartCoroutine(PlayLevelSoundtrack());
-    }
-
-    private IEnumerator PlayLevelSoundtrack()
-    {
-        yield return new WaitForSeconds(2.0f);
-        // AudioManager.Instance.PlayMusic(soundtrack);
-        AudioManager.Instance.StopAmbient();
-    }
-
+    
     private void Awake()
     {
         transform.localScale = Vector3.zero;
@@ -83,6 +72,7 @@ public class LevelStartHandler : MonoBehaviour
         print("[LevelStartHandler] PlayLevel CLICKED");
         transition.StartTransitionOut(levelName);
         AudioManager.Instance.PlayAmbient();
+        AudioManager.Instance.currentSoundTrack = soundtrack;
         print("[LevelStartHandler] TRANSITION STARTED");
         
     }

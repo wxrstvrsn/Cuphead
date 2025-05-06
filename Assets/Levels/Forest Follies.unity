@@ -3142,7 +3142,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!50 &406556197
 Rigidbody2D:
@@ -4803,7 +4803,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!114 &547084258
 MonoBehaviour:
@@ -7588,7 +7588,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!114 &790369559
 MonoBehaviour:
@@ -10116,7 +10116,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!114 &1172079748
 MonoBehaviour:
@@ -10397,7 +10397,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!50 &1203915795
 Rigidbody2D:
@@ -10821,7 +10821,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!50 &1252870243
 Rigidbody2D:
@@ -14237,7 +14237,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!114 &1763459865
 MonoBehaviour:
@@ -14550,7 +14550,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 2
 --- !u!50 &1767120411
 Rigidbody2D:
@@ -15023,7 +15023,7 @@ MonoBehaviour:
   _player: {fileID: 1823113344}
   _destroyDistance: 60
   _jumpDistance: 3
-  _spawnCooldown: 0
+  _spawnCooldown: 10
   _cliffDetectionOffset: 0
 --- !u!114 &1954640490
 MonoBehaviour:

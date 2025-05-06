@@ -18,7 +18,7 @@ public class RunningEnemy : Enemy, IDamageable
     // [SerializeField] private float _activationRadius = 5f;
     [SerializeField] private float _destroyDistance = 15f;
     [SerializeField] private float _jumpDistance = 1.2f;
-    [SerializeField] private float _spawnCooldown;
+    [SerializeField] private float _spawnCooldown = 10f;
     [SerializeField] private float _cliffDetectionOffset;
 
     public float GetSpawnCooldown() => _spawnCooldown;
