@@ -673,7 +673,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4e00ffe15d7b73f49aa78703db8fc1b0, type: 3}
   - {fileID: 8300000, guid: 06224d39456d38840b4c058844a2f952, type: 3}
   - {fileID: 8300000, guid: 38c12d43b7e294a46bdb0831f29be957, type: 3}
-  pickUpSound: {fileID: 8300000, guid: 6a0cf19f34b11814f881b1486bd78a37, type: 3}
+  pickUpSound: {fileID: 8300000, guid: 7c37775302573b14080feb33a24bddbf, type: 3}
+  currentSoundTrack: 
 --- !u!4 &1105969530
 Transform:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour
 
     [Header("Wallop_Ready")] [SerializeField]
     private GameObject wallopReady;
+    
+    [Header("Victory")] [SerializeField]
+    private GameObject victory;
 
     private bool _isPaused;
     private string _currentSceneName;
@@ -116,5 +119,17 @@ public class GameController : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
+    }
+
+    public void Victory()
+    {
+        StartCoroutine(VictorySequence());
+    }
+
+    private IEnumerator VictorySequence()
+    {
+        victory.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        Pause();
     }
 }

@@ -179,6 +179,7 @@ public class RunningEnemy : Enemy, IDamageable
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log($"[RUNNING ENEMY] OnCollisionEnter2D с {collision.gameObject.name}");
         base.OnCollisionEnter2D(collision);
         if (collision.gameObject.layer == LayerMask.NameToLayer("DeadZone") ||
             collision.gameObject.layer == LayerMask.NameToLayer("EditorOnly"))

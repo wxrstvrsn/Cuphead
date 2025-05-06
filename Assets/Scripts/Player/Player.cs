@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -50,6 +51,15 @@ public class Player : Entity, IDamageable
     /// <returns></returns>
     public bool IsRunning() => _isRunning;
 
+    [SerializeField] private int maxHealth = 3;
+
+    [SerializeField] private HealthBar healthBar;
+
+    private int currentHealth;
+    private bool isInvincible = false;
+    private float invincibilityTimer = 0f;
+    private float invincibilityDuration = 3f;
+
     /*public float GetVelocityX => */
 
     protected override void Awake()
@@ -57,6 +67,7 @@ public class Player : Entity, IDamageable
         base.Awake();
         _body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         _playerAnim = GetComponent<PlayerAnimation>();
+        currentHealth = maxHealth;
     }
 
     private void Update()
@@ -65,6 +76,16 @@ public class Player : Entity, IDamageable
             исправить глитч с дэшем,
             инфинити дэш нот гуд */
         _playerAnim.SetDashing(_isDashing);
+
+        if (isInvincible)
+        {
+            invincibilityTimer -= Time.deltaTime;
+            if (invincibilityTimer <= 0f)
+            {
+                isInvincible = false;
+            }
+        }
+
 
         if (_isDashing)
         {
@@ -152,8 +173,37 @@ public class Player : Entity, IDamageable
 
     public void GetDamage()
     {
-        // Jump();
-        _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 2);
+        Debug.Log($"[DAMAGE] Получен урон. invincible={isInvincible}, HP={currentHealth}");
+        if (isInvincible || currentHealth <= 0)
+        {
+            Debug.Log("[DAMAGE] Урон проигнорирован: неуязвим или мертв");
+            return; // ← этот if должен быть самым первым
+        }
+
+        isInvincible = true; // ← сразу же ставим флаг, ещё до любых эффектов
+
+        currentHealth--;
+        Debug.Log($"[DAMAGE] Текущее здоровье после урона: {currentHealth}");
+        healthBar.UpdateHealthBarUI(currentHealth);
+
         _playerAnim.PlayHit();
+        _body.linearVelocity = new Vector2(_body.linearVelocity.x, jumpForce * 1.5f);
+        AudioManager.Instance.PlaySFX("hit");
+
+        invincibilityTimer = invincibilityDuration;
+
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+
+    private void Die()
+    {
+        _playerAnim.PlayDeath();
+        AudioManager.Instance.PlaySFX("death");
+        // отображаем меню 
     }
 }

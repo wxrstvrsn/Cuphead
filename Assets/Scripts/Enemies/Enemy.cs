@@ -40,10 +40,13 @@ public abstract class Enemy : Entity
 
     protected virtual void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log($"[ENEMY] Столкновение с {other.gameObject.name}");
+        if (!other.collider.CompareTag("Player")) return; 
         // костыль со StackOverflow
         var mono = other.collider.GetComponent<MonoBehaviour>();
         if (mono is IDamageable damageable)
         {
+            Debug.Log("[ENEMY] Вызываем GetDamage()");
             damageable.GetDamage();
         }
     }
