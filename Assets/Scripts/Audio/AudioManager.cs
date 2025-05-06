@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [Header("Audio Clips")]
     [SerializeField] private AudioClip[] musicClips;
     [SerializeField] private AudioClip[] sfxClips;
+    [SerializeField] private AudioClip[] sfxClipsNarratorA;
+    [SerializeField] private AudioClip[] sfxClipsNarratorB;
 
     private Dictionary<string, AudioClip> musicDict;
     private Dictionary<string, AudioClip> sfxDict;
@@ -40,6 +42,18 @@ public class AudioManager : MonoBehaviour
 
         foreach (var clip in sfxClips)
             sfxDict[clip.name] = clip;
+    }
+
+    public void PlayWelcome()
+    {
+        int index = Random.Range(0, sfxClipsNarratorA.Length);
+        sfxSource.PlayOneShot(sfxClipsNarratorA[index]);
+    }
+    
+    public void PlayGo()
+    {
+        int index = Random.Range(0, sfxClipsNarratorB.Length);
+        sfxSource.PlayOneShot(sfxClipsNarratorB[index]);
     }
 
     public void PlayMusic(string name, bool loop = true)

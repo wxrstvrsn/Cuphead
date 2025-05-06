@@ -661,6 +661,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 469c3ef0ee8cd1742810f5e5de9f19f2, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: 215847ccd903f884cac9b709a4a29477, type: 3}
+  sfxClipsNarratorA:
+  - {fileID: 8300000, guid: 3a4a9b329ceebb04b991e2ce68f12ad2, type: 3}
+  - {fileID: 8300000, guid: b5a7c13c188c79343b9db00eb167b67f, type: 3}
+  - {fileID: 8300000, guid: c1192602294b9914c9f74e802a9d4491, type: 3}
+  sfxClipsNarratorB:
+  - {fileID: 8300000, guid: d87b06c20ff451a4196bb379c6d205ef, type: 3}
+  - {fileID: 8300000, guid: 4e00ffe15d7b73f49aa78703db8fc1b0, type: 3}
+  - {fileID: 8300000, guid: 06224d39456d38840b4c058844a2f952, type: 3}
+  - {fileID: 8300000, guid: 38c12d43b7e294a46bdb0831f29be957, type: 3}
 --- !u!4 &1105969530
 Transform:
   m_ObjectHideFlags: 0
